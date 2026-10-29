@@ -401,13 +401,9 @@ body::after{
 .cupom-note svg{ width:70px; height:40px; margin-top:6px; }
 .cupom-note--r svg{ margin-left:auto; }
 @media (min-width:1000px){ .cupom-note{ display:block; } }
-/* no computador o palco sobra: coqueiros nas laterais, recibo um pouco maior e bilhetes mais perto */
-.deco--cupom-l, .deco--cupom-r{ display:none; color:#0739AA; aspect-ratio:2/3; bottom:0; }
+/* no computador o palco sobra: recibo um pouco maior e bilhetes mais perto */
 @media (min-width:1000px){
   .printer{ z-index:1; transform:scale(1.15); transform-origin:top center; }
-  .deco--cupom-l, .deco--cupom-r{ display:block; width:clamp(240px, 24vw, 420px); }
-  .deco--cupom-l{ left:max(-40px, calc(50% - 760px)); }
-  .deco--cupom-r{ right:max(-40px, calc(50% - 740px)); width:clamp(220px, 21vw, 370px); }
   .cupom-note{ z-index:1; font-size:1.7rem; }
   .cupom-note--l{ left:auto; right:calc(50% + 230px); top:30%; }
   .cupom-note--r{ right:auto; left:calc(50% + 230px); top:52%; }
@@ -762,8 +758,6 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   </div>
   <div class="cupom-track">
     <div class="cupom-stage">
-      <svg class="deco deco--cupom-l" aria-hidden="true"><use href="#d-coqueiro-torto"/></svg>
-      <svg class="deco deco--cupom-r" aria-hidden="true"><use href="#d-coqueiro"/></svg>
       <p class="cupom-note cupom-note--l">quentinho, saindo agora
         <svg viewBox="0 0 70 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 8 C 24 4, 46 14, 62 30"/><path d="M52 31 L63 31 L62 20"/></svg>
       </p>

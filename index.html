@@ -344,6 +344,7 @@ body::after{
 .cupom-head h2{ margin:14px 0 10px; text-shadow:.04em .04em 0 var(--ink); }
 .cupom-head .hand{ color:var(--mustard); font-size:1.2rem; }
 .cupom-track{ position:relative; height:250vh; }
+@media (max-width:899px){ .cupom-track{ height:230vh; } }
 .cupom-stage{
   position:sticky; top:var(--hdr); height:calc(100svh - var(--hdr));
   display:flex; flex-direction:column; align-items:center; padding-top:18px;
@@ -701,15 +702,15 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <button class="stack" type="button" aria-label="Mostrar a próxima foto">
         <!-- TROCAR FOTOS: fotos/polaroid-1.jpg, polaroid-2.jpg e polaroid-3.jpg -->
         <figure class="pol" data-pos="0">
-          <div class="ph"><span class="ph-tag"><b>Foto da chapa</b>fotos/polaroid-1.jpg</span><img src="fotos/polaroid-1.jpg" alt="Hambúrgueres sendo amassados na chapa" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Foto da chapa</b>fotos/polaroid-1.jpg</span><img src="fotos/polaroid-1.jpg" loading="lazy" decoding="async" alt="Hambúrgueres sendo amassados na chapa" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>a chapa no talo, 18h</figcaption>
         </figure>
         <figure class="pol" data-pos="1">
-          <div class="ph"><span class="ph-tag"><b>Borda de perto</b>fotos/polaroid-2.jpg</span><img src="fotos/polaroid-2.jpg" alt="Detalhe da borda crocante do smash burger" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Borda de perto</b>fotos/polaroid-2.jpg</span><img src="fotos/polaroid-2.jpg" loading="lazy" decoding="async" alt="Detalhe da borda crocante do smash burger" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>borda crocante, sempre</figcaption>
         </figure>
         <figure class="pol" data-pos="2">
-          <div class="ph"><span class="ph-tag"><b>Foto do milkshake</b>fotos/polaroid-3.jpg</span><img src="fotos/polaroid-3.jpg" alt="Milkshake de baunilha com chantili" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Foto do milkshake</b>fotos/polaroid-3.jpg</span><img src="fotos/polaroid-3.jpg" loading="lazy" decoding="async" alt="Milkshake de baunilha com chantili" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>shake gelado pra fechar</figcaption>
         </figure>
       </button>

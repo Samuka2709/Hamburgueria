@@ -83,7 +83,7 @@ body::after{
 .btn svg{ width:1.1em; height:1.1em; }
 
 .stk{
-  display:inline-block; font-family:var(--f-sticker); font-size:.8rem; line-height:1; letter-spacing:.02em; text-transform:uppercase; white-space:nowrap;
+  display:inline-block; font-family:var(--f-body); font-weight:700; font-size:.85rem; line-height:1; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap;
   padding:.6em .95em .5em; border:2.5px solid var(--ink); border-radius:999px;
   background:var(--mustard); color:var(--ink); box-shadow:2px 2px 0 var(--ink);
   transform:rotate(var(--r,-6deg));
@@ -403,7 +403,7 @@ body::after{
 @media (min-width:1000px){ .cupom-note{ display:block; } }
 
 /* ============ MAIS VENDIDOS ============ */
-.mais{ background:var(--red); color:var(--cream); padding:104px 0 100px; overflow:clip; }
+.mais{ position:relative; background:var(--red); color:var(--cream); padding:104px 0 100px; overflow:clip; }
 .sec-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:8px 24px; margin-bottom:34px; }
 .mais .label{ color:var(--mustard); margin-bottom:10px; }
 .mais h2{ text-shadow:.04em .04em 0 var(--ink); }
@@ -470,7 +470,7 @@ body::after{
 .item{ padding:16px 0 18px; border-bottom:2px dashed rgba(14,14,20,.22); }
 .item-top{ display:flex; align-items:baseline; gap:10px; }
 .item h4{ font-weight:600; font-size:1.22rem; letter-spacing:.02em; text-transform:uppercase; line-height:1.2; }
-.item h4 .stk{ font-size:.6rem; margin-left:6px; vertical-align:3px; --r:-4deg; }
+.item h4 .stk{ font-size:.7rem; margin-left:6px; vertical-align:3px; --r:-4deg; }
 .lead{ flex:1; min-width:18px; border-bottom:3px dotted rgba(14,14,20,.45); transform:translateY(-6px); }
 .item-price{ font-family:var(--f-mono); font-weight:700; font-size:1rem; white-space:nowrap; }
 .item p{ margin-top:4px; color:var(--muted); font-size:1rem; line-height:1.45; max-width:48ch; }
@@ -481,7 +481,7 @@ body::after{
 }
 
 /* ============ HISTÓRIA ============ */
-.historia{ background:var(--blue); color:var(--cream); padding:110px 0 120px; overflow:clip; }
+.historia{ position:relative; background:var(--blue); color:var(--cream); padding:110px 0 120px; overflow:clip; }
 .hist-grid{ display:grid; gap:64px; align-items:center; }
 .historia .label{ color:var(--mustard); margin-bottom:10px; }
 .historia h2{ text-shadow:.04em .04em 0 var(--ink); }
@@ -504,8 +504,19 @@ body::after{
 .snap figcaption{ font-family:var(--f-hand); font-size:.98rem; text-align:center; padding:8px 4px 10px; line-height:1.15; }
 @media (min-width:900px){ .hist-grid{ grid-template-columns:1fr 1fr; gap:80px; } }
 
+/* ============ DESENHOS DE DETALHE ============ */
+.deco{ position:absolute; z-index:0; pointer-events:none; fill:currentColor; }
+.hero-grid, .mais > .wrap, .historia > .wrap, .foot > .wrap, .cupom-head{ position:relative; z-index:1; }
+.deco--sol{ color:#BD110B; width:min(92vw, 560px); aspect-ratio:1; top:calc(var(--hdr) - 10px); right:-26vw; animation:solGira 90s linear infinite; }
+.deco--coq-cupom{ color:#0739AA; width:clamp(150px, 30vw, 300px); aspect-ratio:2/3; left:-40px; top:40px; transform:rotate(-6deg); }
+.deco--berimbau{ color:#B00E08; width:clamp(80px, 16vw, 130px); aspect-ratio:1/4; right:4%; top:56px; transform:rotate(16deg); }
+.deco--tucano{ color:#0739AA; width:clamp(160px, 34vw, 340px); aspect-ratio:4/5; right:-30px; bottom:-20px; }
+.deco--coq-foot{ color:#26263A; width:clamp(150px, 26vw, 280px); aspect-ratio:2/3; right:-20px; bottom:0; }
+@media (min-width:900px){ .deco--sol{ right:auto; left:52%; top:calc(var(--hdr) + 10px); } }
+@keyframes solGira{ to{ transform:rotate(360deg); } }
+
 /* ============ RODAPÉ ============ */
-.foot{ background:var(--ink); color:var(--cream); padding:96px 0 30px; }
+.foot{ position:relative; overflow:clip; background:var(--ink); color:var(--cream); padding:96px 0 30px; }
 .foot-logo{
   font-family:var(--f-sticker); font-size:clamp(3.6rem, 21vw, 9rem); line-height:.92; letter-spacing:.01em;
   color:var(--red); text-shadow:.045em .045em 0 var(--blue);
@@ -607,6 +618,14 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 </style>
 </head>
 <body>
+<!-- desenhos de detalhe (sol, coqueiros, tucano, berimbau), um por seção -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="d-sol" viewBox="0 0 200 200"><path d="M147.5 100 L150.3 113.5 L142.4 124.5 L134.3 134.3 L125.6 144.3 L113 148.5 L100 149.1 L86.7 149.5 L74.4 144.4 L64.5 135.5 L55.9 125.5 L51 113.1 L48.4 100 L52.9 87.4 L57.2 75.3 L63.9 63.9 L74.5 55.8 L87.6 53.9 L100 49.1 L112.9 51.9 L126.1 54.9 L136.4 63.6 L141.7 75.9 L148.4 87ZM160.6 104.3 L190.3 114.2 L191.9 116.8 L189.5 118.7 L158.2 117.4ZM152.5 132.4 L175.6 156 L175.7 159.1 L172.7 159.7 L144.1 143ZM129.4 151.5 L139.3 184.7 L137.9 187.5 L135 186.6 L117.5 156.7ZM100 158.6 L92.5 187.7 L90.1 189.4 L88.2 187.2 L87.2 157.2ZM69.8 150.9 L45.2 176.8 L42.1 177 L41.4 174 L59.4 143.1ZM46.4 129 L14.1 137.5 L11.3 136.1 L12.3 133.2 L41.4 116.6ZM40.9 101.9 L9.5 95.3 L7.7 92.9 L9.9 90.8 L41.9 89ZM49 69.1 L29.7 48.8 L29.5 45.9 L32.4 45.4 L56.9 58.7ZM74.4 47.7 L68 17.3 L69.4 14.7 L72.2 15.8 L86.5 43.4ZM100.1 39.3 L108.1 6.1 L110.7 4.4 L112.8 6.6 L113.3 40.8ZM130.4 49.8 L152.5 28.1 L155.5 27.8 L156 30.8 L140.6 57.7ZM151.3 70 L180.6 61.6 L183.3 62.8 L182.4 65.7 L156.6 81.9Z"/></symbol>
+  <symbol id="d-coqueiro" viewBox="0 0 120 180"><path d="M57 66C55 108 52 146 46 180h24C64 146 63 108 64 66ZM60 64 Q30 32 0 104 Q30 70 60 68ZM60 64 Q37 32 14 58 Q37 64 60 68ZM60 64 Q83 32 106 58 Q83 64 60 68ZM60 64 Q90 32 120 104 Q90 70 60 68ZM60 64 Q49 10 38 28 Q49 36 60 68ZM60 64 Q72 10 84 28 Q72 36 60 68Z"/></symbol>
+  <symbol id="d-coqueiro-torto" viewBox="0 0 120 180"><path d="M64 60C54 100 40 140 46 180h22C60 140 70 100 72 60ZM68 58 Q37 26 6 98 Q37 64 68 62ZM68 58 Q44 26 20 52 Q44 58 68 62ZM68 58 Q90 26 112 52 Q90 58 68 62ZM68 58 Q97 26 126 98 Q97 64 68 62ZM68 58 Q56 4 44 22 Q56 30 68 62ZM68 58 Q79 4 90 22 Q79 30 68 62Z"/></symbol>
+  <symbol id="d-tucano" viewBox="0 0 120 150"><path fill-rule="evenodd" d="M62 22C40 13 14 17 5 34c-2 5 2 7 7 5 15-5 32-1 48 8-3 15-8 31-6 49 2 16 12 30 26 36l5 8h8l-4-10c10-6 17-20 17-38 2-28-6-52-16-64-8-8-18-10-28-6ZM76 29a4 4 0 1 0 0.1 0Z"/><path d="M76 124l-3 12 6 2 4-12ZM88 126l1 12 6 0-1-12Z"/></symbol>
+  <symbol id="d-berimbau" viewBox="0 0 60 240"><path d="M40 3C13 60 4 150 10 230h10C14 150 22 60 49 6Z"/><path d="M44 6 37 216" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="212" r="17"/><path d="M33 158l8 1-1 6-8-1Z"/></symbol>
+</svg>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <!-- ============ 1. MENU FIXO ============ -->
@@ -648,6 +667,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
 <!-- ============ 2. HERO ============ -->
 <section class="hero" id="inicio" aria-labelledby="hero-title">
+  <svg class="deco deco--sol" aria-hidden="true"><use href="#d-sol"/></svg>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="hand">Pontal · Ilhéus-BA</p>
@@ -726,6 +746,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
 <!-- ============ 5. CUPOM FISCAL ============ -->
 <section class="cupom" aria-labelledby="cupom-title">
+  <svg class="deco deco--coq-cupom" aria-hidden="true"><use href="#d-coqueiro-torto"/></svg>
   <div class="wrap cupom-head">
     <p class="label">Fechando a conta</p>
     <h2 class="big-title" id="cupom-title">O que vai na conta</h2>
@@ -779,6 +800,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
 <!-- ============ 6. MAIS VENDIDOS ============ -->
 <section class="mais" id="mais-vendidos" aria-labelledby="mais-title">
+  <svg class="deco deco--berimbau" aria-hidden="true"><use href="#d-berimbau"/></svg>
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -912,6 +934,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
 <!-- ============ 8. NOSSA HISTÓRIA ============ -->
 <section class="historia" id="historia" aria-labelledby="hist-title">
+  <svg class="deco deco--tucano" aria-hidden="true"><use href="#d-tucano"/></svg>
   <div class="wrap hist-grid">
     <div>
       <p class="label">De onde a gente veio</p>
@@ -947,6 +970,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
 <!-- ============ 9. RODAPÉ ============ -->
 <footer class="foot" id="contato">
+  <svg class="deco deco--coq-foot" aria-hidden="true"><use href="#d-coqueiro"/></svg>
   <div class="wrap">
     <p class="foot-logo" aria-label="Brasa Smash">BRASA<span>SMASH</span></p>
     <div class="foot-cta">

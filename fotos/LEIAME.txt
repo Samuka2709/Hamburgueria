@@ -1,0 +1,27 @@
+FOTOS DO SITE BRASA SMASH (demonstração)
+
+Coloque aqui as fotos com exatamente estes nomes. Assim que o arquivo existir,
+o site mostra a foto no lugar do espaço reservado, sem mexer no código.
+
+hero.webp              -> abertura: hambúrguer em camadas com FUNDO TRANSPARENTE (já incluído).
+                          Para trocar, use outra imagem vertical sem fundo (PNG ou WebP) e
+                          ajuste o nome em index.html, se mudar a extensão.
+polaroid-1.jpg         -> manifesto, polaroid 1 (a chapa)
+polaroid-2.jpg         -> manifesto, polaroid 2 (borda crocante de perto)
+polaroid-3.jpg         -> manifesto, polaroid 3 (milkshake)
+brasa-classico.jpg     -> mais vendidos
+batata-recheada.jpg    -> mais vendidos
+milkshake-baunilha.jpg -> mais vendidos
+brasa-apimentado.jpg   -> mais vendidos
+historia-1.jpg         -> nossa história (a primeira chapa)
+historia-2.jpg         -> nossa história (fila na calçada)
+historia-3.jpg         -> nossa história (a equipe)
+historia-4.jpg         -> nossa história (a fachada)
+
+Use JPG otimizado para web (até uns 1600 px no lado maior).
+Só use fotos que você tenha direito de usar.
+
+CRÉDITOS (Unsplash, Licença da Unsplash: uso livre, crédito não obrigatório)
+historia-2.jpg -> Eugeniya Belova, https://unsplash.com/photos/QIFnf9YzPL0
+historia-4.jpg -> Valentin (@omikron), https://unsplash.com/photos/oJnTgfEi6p0
+historia-2.svg e historia-4.svg -> ilustrações alternativas feitas para o site (não usadas no momento)

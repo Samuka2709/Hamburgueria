@@ -15,3 +15,8 @@ fotos/cozi.jpg
 desktop.ini
 Thumbs.db
 .claude/
+
+# referências de banco de imagens (não usadas no site)
+fotos/*.avif
+fotos/90955808-*
+fotos/silhouette-berimbau-*

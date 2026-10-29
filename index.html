@@ -1261,7 +1261,9 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     const vh = innerHeight;
     if (reduce) { st.man.t = 1; st.rec.t = 1; return; }
     const m = man.getBoundingClientRect();
-    const start = vh * 0.85, end = vh * 0.4;
+    // no celular o texto é alto: termina de acender com o fim do parágrafo ainda no terço de baixo da tela
+    const narrow = innerWidth < 900;
+    const start = vh * (narrow ? 0.95 : 0.85), end = vh * (narrow ? 0.72 : 0.4);
     st.man.t = clamp((start - m.top) / (m.height + start - end));
     const t = track.getBoundingClientRect();
     const lead = vh * 0.3;

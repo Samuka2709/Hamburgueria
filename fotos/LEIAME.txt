@@ -1,27 +1,22 @@
 FOTOS DO SITE GRIDDLEBIRD (demonstração)
 
-Coloque aqui as fotos com exatamente estes nomes. Assim que o arquivo existir,
-o site mostra a foto no lugar do espaço reservado, sem mexer no código.
+Esta pasta guarda só as imagens que o site usa, todas em WebP.
+Para trocar uma foto, salve a nova com o mesmo nome. Só use fotos que você tenha direito de usar.
 
-hero.webp              -> abertura: hambúrguer em camadas com FUNDO TRANSPARENTE (já incluído).
-                          Para trocar, use outra imagem vertical sem fundo (PNG ou WebP) e
-                          ajuste o nome em index.html, se mudar a extensão.
-polaroid-1.jpg         -> manifesto, polaroid 1 (a chapa)
-polaroid-2.jpg         -> manifesto, polaroid 2 (borda crocante de perto)
-polaroid-3.jpg         -> manifesto, polaroid 3 (milkshake)
-classic-griddle.jpg     -> mais vendidos
-batata-recheada.jpg    -> mais vendidos
-milkshake-baunilha.jpg -> mais vendidos
-spicy-griddle.jpg   -> mais vendidos
-historia-1.jpg         -> nossa história (a primeira chapa)
-historia-2.jpg         -> nossa história (fila na calçada)
-historia-3.jpg         -> nossa história (a equipe)
-historia-4.jpg         -> nossa história (a fachada)
+hero.webp, hero-720.webp, hero-480.webp -> abertura: hambúrguer em camadas com fundo transparente
+polaroid-1.webp         -> manifesto (a chapa)
+polaroid-2.webp         -> manifesto (borda crocante de perto)
+milkshake-baunilha.webp -> manifesto e mais vendidos
+classic-griddle.webp    -> mais vendidos
+batata-recheada.webp    -> mais vendidos
+spicy-griddle.webp      -> mais vendidos
+historia-1.webp         -> nossa história (a primeira chapa)
+historia-2.webp         -> nossa história (fila na calçada)
+historia-3.webp         -> nossa história (a equipe)
+historia-4.webp         -> nossa história (a fachada)
 
-Use JPG otimizado para web (até uns 1600 px no lado maior).
-Só use fotos que você tenha direito de usar.
+CRÉDITOS (Unsplash, Licença da Unsplash)
+historia-2.webp -> Eugeniya Belova, https://unsplash.com/photos/QIFnf9YzPL0
+historia-4.webp -> Valentin (@omikron), https://unsplash.com/photos/oJnTgfEi6p0
 
-CRÉDITOS (Unsplash, Licença da Unsplash: uso livre, crédito não obrigatório)
-historia-2.jpg -> Eugeniya Belova, https://unsplash.com/photos/QIFnf9YzPL0
-historia-4.jpg -> Valentin (@omikron), https://unsplash.com/photos/oJnTgfEi6p0
-historia-2.svg e historia-4.svg -> ilustrações alternativas feitas para o site (não usadas no momento)
+Originais, versões em JPG e referências ficam em _arquivo/, que não vai para o GitHub.

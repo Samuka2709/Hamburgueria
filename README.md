@@ -1,6 +1,6 @@
 # Griddlebird
 
-Site de demonstração para portfólio de uma hamburgueria smash fictícia no Pontal, Ilhéus-BA.
+Site de demonstração para portfólio de uma hamburgueria smash fictícia com dados de exemplo dos EUA.
 Marca, endereço, telefone, cardápio e preços são fictícios.
 
 Uma página só (`index.html`), com HTML, CSS e JavaScript juntos, sem dependências além das fontes do Google Fonts.

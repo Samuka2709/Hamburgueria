@@ -595,6 +595,28 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .opt strong{ display:block; font-weight:600; font-size:1.12rem; letter-spacing:.03em; text-transform:uppercase; line-height:1.15; }
 .opt small{ display:block; font-size:.9rem; line-height:1.3; opacity:.85; }
 .opt-go{ margin-left:auto; flex:none; width:20px; height:20px; }
+.sacola[hidden], .sacola-bar[hidden]{ display:none; }
+.sacola-lista{ list-style:none; margin:10px 0 0; padding:0; border-top:2px dashed rgba(14,14,20,.22); }
+.sacola-lista li{ display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:2px dashed rgba(14,14,20,.22); }
+.sacola-nome{ flex:1; min-width:0; font-weight:600; font-size:1.02rem; letter-spacing:.02em; text-transform:uppercase; line-height:1.15; }
+.sacola-nome small{ display:block; font-family:var(--f-mono); font-weight:400; font-size:.76rem; letter-spacing:0; text-transform:none; }
+.sacola-passo{ flex:none; display:flex; align-items:center; gap:4px; }
+.sacola-passo b{ min-width:1.6em; text-align:center; font-family:var(--f-mono); }
+.sacola-passo button{ width:40px; height:40px; display:grid; place-items:center; font-size:1.25rem; font-weight:700; line-height:1; color:var(--ink); background:var(--cream); border:2px solid var(--ink); border-radius:10px; cursor:pointer; }
+.sacola-passo button:active{ transform:scale(.95); }
+.sacola-total{ display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 2px; font-weight:600; font-size:1.1rem; text-transform:uppercase; letter-spacing:.03em; }
+.sacola-total b{ font-family:var(--f-mono); font-size:1.15rem; }
+.sacola-mais{ min-height:44px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.sacola-bar{
+  position:fixed; z-index:40; left:var(--gutter); right:var(--gutter); bottom:calc(14px + env(safe-area-inset-bottom));
+  max-width:460px; min-height:56px; margin-inline:auto; padding:8px 16px;
+  display:flex; align-items:center; gap:12px;
+  font:inherit; font-weight:600; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase;
+  color:var(--ink); background:var(--mustard); border:3px solid var(--ink); border-radius:14px; box-shadow:4px 4px 0 var(--ink); cursor:pointer;
+}
+.sacola-bar-qtd{ min-width:30px; height:30px; padding:0 6px; display:grid; place-items:center; color:var(--cream); background:var(--ink); border-radius:999px; font-family:var(--f-mono); font-size:.9rem; }
+.sacola-bar b{ margin-left:auto; font-family:var(--f-mono); }
+.item-add{ flex:none; align-self:center; width:36px; height:36px; display:grid; place-items:center; color:var(--cream); background:var(--blue); border:2px solid var(--ink); border-radius:10px; font-family:var(--f-mono); font-weight:700; font-size:1rem; cursor:pointer; }
 .sheet-note{ margin-top:18px; font-family:var(--f-mono); font-size:.7rem; color:var(--muted); }
 
 @media (max-width:639px){
@@ -832,7 +854,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Brasa Clássico</h3>
           <p>Dois smashes, cheddar, cebola na chapa, picles e molho da casa.</p>
-          <div class="card-foot"><span class="price">R$ 29,90</span><a class="btn btn--blue btn--sm" href="#contato" data-pedir>Pedir</a></div>
+          <div class="card-foot"><span class="price">R$ 29,90</span><button class="btn btn--blue btn--sm" type="button" data-add>Adicionar</button></div>
         </div>
       </article>
 
@@ -842,7 +864,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Batata Recheada</h3>
           <p>Batata frita sequinha coberta com cheddar cremoso e bacon crocante.</p>
-          <div class="card-foot"><span class="price">R$ 22,90</span><a class="btn btn--blue btn--sm" href="#contato" data-pedir>Pedir</a></div>
+          <div class="card-foot"><span class="price">R$ 22,90</span><button class="btn btn--blue btn--sm" type="button" data-add>Adicionar</button></div>
         </div>
       </article>
 
@@ -852,7 +874,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Milkshake de Baunilha</h3>
           <p>Sorvete de baunilha batido na hora, cremoso e bem gelado.</p>
-          <div class="card-foot"><span class="price">R$ 18,90</span><a class="btn btn--blue btn--sm" href="#contato" data-pedir>Pedir</a></div>
+          <div class="card-foot"><span class="price">R$ 18,90</span><button class="btn btn--blue btn--sm" type="button" data-add>Adicionar</button></div>
         </div>
       </article>
 
@@ -863,7 +885,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Brasa Apimentado</h3>
           <p>Dois smashes, pepper jack, jalapeño e maionese de chipotle.</p>
-          <div class="card-foot"><span class="price">R$ 32,90</span><a class="btn btn--blue btn--sm" href="#contato" data-pedir>Pedir</a></div>
+          <div class="card-foot"><span class="price">R$ 32,90</span><button class="btn btn--blue btn--sm" type="button" data-add>Adicionar</button></div>
         </div>
       </article>
     </div>
@@ -1031,6 +1053,12 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 </footer>
 
 <!-- ============ JANELA / GAVETA PEDIR AGORA ============ -->
+<button class="sacola-bar" type="button" data-sacola-bar hidden>
+  <span class="sacola-bar-qtd" data-bar-qtd></span>
+  <span>Ver pedido</span>
+  <b data-bar-total></b>
+</button>
+
 <dialog class="sheet" id="pedido" aria-labelledby="pedido-title">
   <div class="sheet-inner">
     <div class="sheet-grip" aria-hidden="true"></div>
@@ -1040,6 +1068,12 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <p class="hand">bateu a fome?</p>
     <h2 id="pedido-title">Pedir agora</h2>
     <p class="status" data-status></p>
+
+    <div class="sacola" data-sacola hidden>
+      <ul class="sacola-lista" data-sacola-lista></ul>
+      <p class="sacola-total"><span>Total</span><b data-sacola-total></b></p>
+      <button class="sacola-mais" type="button" data-sacola-mais>+ Adicionar mais itens</button>
+    </div>
 
     <a class="opt opt--main" data-pedido-link href="https://wa.me/5573998258544?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">
       <span class="opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 18.5 5.3 15A7.8 7.8 0 1 1 8.6 18Z"/><path d="M9 10.5h6M9 13.5h4"/></svg></span>
@@ -1138,28 +1172,80 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     dlg.classList.add('is-closing');
     setTimeout(() => { dlg.classList.remove('is-closing'); dlg.close(); }, 230);
   }
-  // o pedido leva para o WhatsApp o item escolhido no card ou no cardápio
+  /* ---------- sacola: junta vários itens e leva tudo para o WhatsApp ---------- */
   const pedidoLink = $('[data-pedido-link]'), pedidoResumo = $('[data-pedido-resumo]');
   const pedidoBase = pedidoLink.href.split('?')[0];
-  function escolher(item) {
-    const msg = item ? `Olá, quero pedir: 1x ${item}` : 'Olá, quero fazer um pedido';
+  const sacolaBox = $('[data-sacola]'), sacolaLista = $('[data-sacola-lista]'), sacolaTotal = $('[data-sacola-total]');
+  const bar = $('[data-sacola-bar]'), barQtd = $('[data-bar-qtd]'), barTotal = $('[data-bar-total]');
+  const sacola = new Map(); // nome -> { centavos, qtd }
+  const itensMenu = new Map(); // nome -> botão "+" do cardápio
+  const reais = c => 'R$ ' + (c / 100).toFixed(2).replace('.', ',');
+
+  function pintarSacola() {
+    const itens = [...sacola];
+    const total = itens.reduce((s, [, i]) => s + i.centavos * i.qtd, 0);
+    const qtd = itens.reduce((s, [, i]) => s + i.qtd, 0);
+    sacolaBox.hidden = bar.hidden = !qtd;
+    barQtd.textContent = qtd;
+    barTotal.textContent = sacolaTotal.textContent = reais(total);
+    sacolaLista.replaceChildren(...itens.map(([nome, i]) => {
+      const li = document.createElement('li');
+      li.dataset.nome = nome;
+      li.innerHTML = '<span class="sacola-nome"></span><span class="sacola-passo"><button type="button" data-passo="-1"></button><b></b><button type="button" data-passo="1">+</button></span>';
+      const rotulo = li.querySelector('.sacola-nome');
+      rotulo.textContent = nome;
+      rotulo.append(Object.assign(document.createElement('small'), { textContent: reais(i.centavos) }));
+      li.querySelector('b').textContent = i.qtd;
+      const menos = li.querySelector('[data-passo="-1"]');
+      menos.textContent = i.qtd > 1 ? '−' : '×';
+      menos.setAttribute('aria-label', (i.qtd > 1 ? 'Tirar um ' : 'Remover ') + nome);
+      li.querySelector('[data-passo="1"]').setAttribute('aria-label', 'Mais um ' + nome);
+      return li;
+    }));
+    itensMenu.forEach((b, nome) => { b.textContent = sacola.get(nome)?.qtd || '+'; });
+    const msg = qtd
+      ? ['Olá, quero fazer um pedido:', ...itens.map(([nome, i]) => `${i.qtd}x ${nome} (${reais(i.centavos)})`), `Total: ${reais(total)}`].join('\n')
+      : 'Olá, quero fazer um pedido';
     pedidoLink.href = `${pedidoBase}?text=${encodeURIComponent(msg)}`;
-    pedidoResumo.textContent = item ? `1x ${item}` : 'Já vai com "Olá, quero fazer um pedido"';
+    pedidoResumo.textContent = qtd ? `${qtd} ${qtd > 1 ? 'itens' : 'item'} · ${reais(total)}` : 'Já vai com "Olá, quero fazer um pedido"';
   }
-  $$('[data-pedir]').forEach(b => b.addEventListener('click', e => {
-    const card = b.closest('.card');
-    escolher(card ? `${card.querySelector('h3').textContent.trim()} (${card.querySelector('.price').textContent.trim()})` : '');
-    openPedido(e);
-  }));
+  function adicionar(nome, preco) {
+    const i = sacola.get(nome);
+    if (i) i.qtd++; else sacola.set(nome, { centavos: +preco.replace(/\D/g, ''), qtd: 1 });
+    pintarSacola();
+    if (!reduce) bar.animate([{ transform: 'scale(1.05)' }, { transform: 'none' }], { duration: 180, easing: 'ease-out' });
+  }
+  $$('[data-pedir]').forEach(b => b.addEventListener('click', openPedido));
+  bar.addEventListener('click', openPedido);
+  $('[data-sacola-mais]').addEventListener('click', closePedido);
+  sacolaLista.addEventListener('click', e => {
+    const b = e.target.closest('[data-passo]');
+    if (!b) return;
+    const nome = b.closest('li').dataset.nome, i = sacola.get(nome);
+    i.qtd += +b.dataset.passo;
+    if (!i.qtd) sacola.delete(nome);
+    pintarSacola();
+  });
+  $$('[data-add]').forEach(b => {
+    let volta = 0;
+    b.addEventListener('click', () => {
+      const card = b.closest('.card');
+      adicionar(card.querySelector('h3').textContent.trim(), card.querySelector('.price').textContent);
+      b.textContent = 'Adicionado';
+      clearTimeout(volta);
+      volta = setTimeout(() => { b.textContent = 'Adicionar'; }, 1100);
+    });
+  });
   $$('.item').forEach(li => {
-    li.tabIndex = 0; li.setAttribute('role', 'button');
-    const pedir = e => {
-      const nome = li.querySelector('h4').firstChild.textContent.trim();
-      escolher(`${nome} (${li.querySelector('.item-price').textContent.trim()})`);
-      openPedido(e);
-    };
-    li.addEventListener('click', pedir);
-    li.addEventListener('keydown', e => { if (e.key === 'Enter') pedir(e); });
+    const nome = li.querySelector('h4').firstChild.textContent.trim();
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'item-add';
+    add.textContent = '+';
+    add.setAttribute('aria-label', 'Adicionar ' + nome);
+    $('.item-top', li).append(add);
+    itensMenu.set(nome, add);
+    li.addEventListener('click', () => adicionar(nome, $('.item-price', li).textContent));
   });
   $('.sheet-close').addEventListener('click', closePedido);
   dlg.addEventListener('cancel', e => { e.preventDefault(); closePedido(); });

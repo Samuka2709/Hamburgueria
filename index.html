@@ -18,11 +18,17 @@
 <meta name="theme-color" content="#DC1811">
 <meta name="color-scheme" content="only light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23E01A12'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='26' text-anchor='middle' fill='%23FFF4E2'%3EBS%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=League+Gothic&family=Oswald:wght@400;500;600;700&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/league-gothic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+/* fontes hospedadas no próprio site (subconjunto latino) */
+@font-face{ font-family:"Bowlby One SC"; font-style:normal; font-weight:400; font-display:swap; src:url(fonts/bowlby-one-sc-400.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face{ font-family:"League Gothic"; font-style:normal; font-weight:400; font-display:swap; src:url(fonts/league-gothic-400.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face{ font-family:"Oswald"; font-style:normal; font-weight:400 700; font-display:swap; src:url(fonts/oswald-var.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face{ font-family:"Permanent Marker"; font-style:normal; font-weight:400; font-display:swap; src:url(fonts/permanent-marker-400.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face{ font-family:"Space Mono"; font-style:normal; font-weight:400; font-display:swap; src:url(fonts/space-mono-400.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face{ font-family:"Space Mono"; font-style:normal; font-weight:700; font-display:swap; src:url(fonts/space-mono-700.woff2) format("woff2"); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 /* ============ BASE ============ */
 :root{
   color-scheme:only light;
@@ -784,17 +790,17 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
     <div class="stack-area">
       <button class="stack" type="button" aria-label="Mostrar a próxima foto">
-        <!-- TROCAR FOTOS: fotos/polaroid-1.jpg, polaroid-2.jpg e polaroid-3.jpg -->
+        <!-- TROCAR FOTOS: fotos/polaroid-1.webp, polaroid-2.webp e milkshake-baunilha.webp -->
         <figure class="pol" data-pos="0">
-          <div class="ph"><span class="ph-tag"><b>Foto da chapa</b>fotos/polaroid-1.jpg</span><img src="fotos/polaroid-1.jpg" loading="lazy" decoding="async" alt="Hambúrgueres sendo amassados na chapa" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Foto da chapa</b>fotos/polaroid-1.webp</span><img src="fotos/polaroid-1.webp" loading="lazy" decoding="async" alt="Hambúrgueres sendo amassados na chapa" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>a chapa no talo, 18h</figcaption>
         </figure>
         <figure class="pol" data-pos="1">
-          <div class="ph"><span class="ph-tag"><b>Borda de perto</b>fotos/polaroid-2.jpg</span><img src="fotos/polaroid-2.jpg" loading="lazy" decoding="async" alt="Detalhe da borda crocante do smash burger" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Borda de perto</b>fotos/polaroid-2.webp</span><img src="fotos/polaroid-2.webp" loading="lazy" decoding="async" alt="Detalhe da borda crocante do smash burger" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>borda crocante, sempre</figcaption>
         </figure>
         <figure class="pol" data-pos="2">
-          <div class="ph"><span class="ph-tag"><b>Foto do milkshake</b>fotos/polaroid-3.jpg</span><img src="fotos/polaroid-3.jpg" loading="lazy" decoding="async" alt="Milkshake de baunilha com chantili" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-tag"><b>Foto do milkshake</b>fotos/milkshake-baunilha.webp</span><img src="fotos/milkshake-baunilha.webp" loading="lazy" decoding="async" alt="Milkshake de baunilha com chantili" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
           <figcaption>shake gelado pra fechar</figcaption>
         </figure>
       </button>
@@ -873,8 +879,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <div class="cards">
       <article class="card">
         <span class="stk" style="--r:8deg">Mais pedido</span>
-        <!-- TROCAR FOTO: fotos/brasa-classico.jpg -->
-        <div class="ph"><span class="ph-tag"><b>Brasa Clássico</b>fotos/brasa-classico.jpg</span><img src="fotos/brasa-classico.jpg" alt="Brasa Clássico: dois smashes com cheddar no pão brioche" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/brasa-classico.webp -->
+        <div class="ph"><span class="ph-tag"><b>Brasa Clássico</b>fotos/brasa-classico.webp</span><img src="fotos/brasa-classico.webp" alt="Brasa Clássico: dois smashes com cheddar no pão brioche" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Brasa Clássico</h3>
           <p>Dois smashes, cheddar, cebola na chapa, picles e molho da casa.</p>
@@ -883,8 +889,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       </article>
 
       <article class="card">
-        <!-- TROCAR FOTO: fotos/batata-recheada.jpg -->
-        <div class="ph"><span class="ph-tag"><b>Batata Recheada</b>fotos/batata-recheada.jpg</span><img src="fotos/batata-recheada.jpg" alt="Batata frita coberta com cheddar cremoso e bacon" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/batata-recheada.webp -->
+        <div class="ph"><span class="ph-tag"><b>Batata Recheada</b>fotos/batata-recheada.webp</span><img src="fotos/batata-recheada.webp" alt="Batata frita coberta com cheddar cremoso e bacon" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Batata Recheada</h3>
           <p>Batata frita sequinha coberta com cheddar cremoso e bacon crocante.</p>
@@ -893,8 +899,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       </article>
 
       <article class="card">
-        <!-- TROCAR FOTO: fotos/milkshake-baunilha.jpg -->
-        <div class="ph"><span class="ph-tag"><b>Milkshake</b>fotos/milkshake-baunilha.jpg</span><img src="fotos/milkshake-baunilha.jpg" alt="Milkshake de baunilha no copo com chantili" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/milkshake-baunilha.webp -->
+        <div class="ph"><span class="ph-tag"><b>Milkshake</b>fotos/milkshake-baunilha.webp</span><img src="fotos/milkshake-baunilha.webp" alt="Milkshake de baunilha no copo com chantili" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Milkshake de Baunilha</h3>
           <p>Sorvete de baunilha batido na hora, cremoso e bem gelado.</p>
@@ -904,8 +910,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
       <article class="card">
         <span class="stk stk--red" style="--r:-7deg">Apimentado</span>
-        <!-- TROCAR FOTO: fotos/brasa-apimentado.jpg -->
-        <div class="ph"><span class="ph-tag"><b>Brasa Apimentado</b>fotos/brasa-apimentado.jpg</span><img src="fotos/brasa-apimentado.jpg" alt="Brasa Apimentado com jalapeño e molho de chipotle" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/brasa-apimentado.webp -->
+        <div class="ph"><span class="ph-tag"><b>Brasa Apimentado</b>fotos/brasa-apimentado.webp</span><img src="fotos/brasa-apimentado.webp" alt="Brasa Apimentado com jalapeño e molho de chipotle" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Brasa Apimentado</h3>
           <p>Dois smashes, pepper jack, jalapeño e maionese de chipotle.</p>
@@ -1010,11 +1016,11 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     </div>
 
     <div class="collage">
-      <!-- TROCAR FOTOS: fotos/historia-1.jpg a historia-4.jpg -->
-      <figure class="snap"><div class="ph"><span class="ph-tag"><b>Primeira chapa</b>historia-1.jpg</span><img src="fotos/historia-1.jpg" alt="A primeira chapa da casa" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a primeira chapa</figcaption></figure>
-      <figure class="snap"><div class="ph"><span class="ph-tag"><b>Fila na calçada</b>historia-2.jpg</span><img src="fotos/historia-2.jpg" alt="Pessoas em silhueta diante de uma barraca de comida iluminada à noite" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>fila na calçada</figcaption></figure>
-      <figure class="snap"><div class="ph"><span class="ph-tag"><b>A equipe</b>historia-3.jpg</span><img src="fotos/historia-3.jpg" alt="Equipe da cozinha atrás do balcão" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a turma da chapa</figcaption></figure>
-      <figure class="snap"><div class="ph"><span class="ph-tag"><b>A fachada</b>historia-4.jpg</span><img src="fotos/historia-4.jpg" alt="Mesa e cadeiras na calçada de um café iluminado à noite" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a casa nova</figcaption></figure>
+      <!-- TROCAR FOTOS: fotos/historia-1.webp a historia-4.webp -->
+      <figure class="snap"><div class="ph"><span class="ph-tag"><b>Primeira chapa</b>historia-1.webp</span><img src="fotos/historia-1.webp" alt="A primeira chapa da casa" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a primeira chapa</figcaption></figure>
+      <figure class="snap"><div class="ph"><span class="ph-tag"><b>Fila na calçada</b>historia-2.webp</span><img src="fotos/historia-2.webp" alt="Pessoas em silhueta diante de uma barraca de comida iluminada à noite" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>fila na calçada</figcaption></figure>
+      <figure class="snap"><div class="ph"><span class="ph-tag"><b>A equipe</b>historia-3.webp</span><img src="fotos/historia-3.webp" alt="Equipe da cozinha atrás do balcão" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a turma da chapa</figcaption></figure>
+      <figure class="snap"><div class="ph"><span class="ph-tag"><b>A fachada</b>historia-4.webp</span><img src="fotos/historia-4.webp" alt="Mesa e cadeiras na calçada de um café iluminado à noite" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div><figcaption>a casa nova</figcaption></figure>
     </div>
   </div>
 </section>

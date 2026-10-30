@@ -1146,12 +1146,12 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     pedidoLink.href = `${pedidoBase}?text=${encodeURIComponent(msg)}`;
     pedidoResumo.textContent = item ? `1x ${item}` : 'Já vai com "Olá, quero fazer um pedido"';
   }
-  $('[data-pedir]').forEach(b => b.addEventListener('click', e => {
+  $$('[data-pedir]').forEach(b => b.addEventListener('click', e => {
     const card = b.closest('.card');
     escolher(card ? `${card.querySelector('h3').textContent.trim()} (${card.querySelector('.price').textContent.trim()})` : '');
     openPedido(e);
   }));
-  $('.item').forEach(li => {
+  $$('.item').forEach(li => {
     li.tabIndex = 0; li.setAttribute('role', 'button');
     const pedir = e => {
       const nome = li.querySelector('h4').firstChild.textContent.trim();

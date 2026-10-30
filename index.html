@@ -607,6 +607,18 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .sacola-total{ display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 2px; font-weight:600; font-size:1.1rem; text-transform:uppercase; letter-spacing:.03em; }
 .sacola-total b{ font-family:var(--f-mono); font-size:1.15rem; }
 .sacola-mais{ min-height:44px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.sacola-dados{ display:grid; gap:12px; margin:4px 0 2px; }
+.campo{ display:block; font-weight:600; font-size:.95rem; letter-spacing:.02em; }
+.campo small{ font-weight:400; opacity:.7; }
+.campo input, .campo textarea{
+  display:block; width:100%; margin-top:5px; padding:11px 12px; resize:vertical;
+  font:inherit; font-weight:400; font-size:16px; letter-spacing:0;
+  color:var(--ink); background:#fff; border:2.5px solid var(--ink); border-radius:11px;
+}
+.campo input::placeholder, .campo textarea::placeholder{ color:var(--muted); opacity:1; }
+.campo input[aria-invalid="true"]{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+.campo-erro{ color:#B00E08; font-weight:600; font-size:.95rem; }
+.campo-erro[hidden]{ display:none; }
 .sacola-bar{
   position:fixed; z-index:40; left:var(--gutter); right:var(--gutter); bottom:calc(14px + env(safe-area-inset-bottom));
   max-width:460px; min-height:56px; margin-inline:auto; padding:8px 16px;
@@ -1073,6 +1085,18 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <ul class="sacola-lista" data-sacola-lista></ul>
       <p class="sacola-total"><span>Total</span><b data-sacola-total></b></p>
       <button class="sacola-mais" type="button" data-sacola-mais>+ Adicionar mais itens</button>
+      <div class="sacola-dados">
+        <label class="campo">Nome
+          <input type="text" data-campo="nome" name="nome" autocomplete="name" required>
+        </label>
+        <label class="campo">Endereço de entrega
+          <input type="text" data-campo="endereco" name="endereco" autocomplete="street-address" placeholder="Rua, número e bairro" required>
+        </label>
+        <label class="campo">Observações <small>(opcional)</small>
+          <textarea data-campo="obs" name="observacoes" rows="2" placeholder="Ex.: sem cebola, troco para R$ 50"></textarea>
+        </label>
+        <p class="campo-erro" data-campo-erro role="alert" hidden></p>
+      </div>
     </div>
 
     <a class="opt opt--main" data-pedido-link href="https://wa.me/5573998258544?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">
@@ -1181,6 +1205,43 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   const itensMenu = new Map(); // nome -> botão "+" do cardápio
   const reais = c => 'R$ ' + (c / 100).toFixed(2).replace('.', ',');
 
+  const campos = { nome: $('[data-campo="nome"]'), endereco: $('[data-campo="endereco"]'), obs: $('[data-campo="obs"]') };
+  const campoErro = $('[data-campo-erro]');
+
+  function montarMensagem() {
+    const itens = [...sacola];
+    const total = itens.reduce((s, [, i]) => s + i.centavos * i.qtd, 0);
+    const [nome, endereco, obs] = [campos.nome, campos.endereco, campos.obs].map(c => c.value.trim());
+    const msg = itens.length
+      ? [
+          'Olá, quero fazer um pedido:',
+          ...itens.map(([n, i]) => `${i.qtd}x ${n} (${reais(i.centavos)})`),
+          `Total: ${reais(total)}`,
+          '',
+          `Nome: ${nome}`,
+          `Endereço: ${endereco}`,
+          ...(obs ? [`Observações: ${obs}`] : []),
+        ].join('\n')
+      : 'Olá, quero fazer um pedido';
+    pedidoLink.href = `${pedidoBase}?text=${encodeURIComponent(msg)}`;
+  }
+  Object.values(campos).forEach(c => c.addEventListener('input', () => {
+    c.removeAttribute('aria-invalid');
+    campoErro.hidden = true;
+    montarMensagem();
+  }));
+  // com itens na sacola, nome e endereço são obrigatórios antes de abrir o WhatsApp
+  pedidoLink.addEventListener('click', e => {
+    if (!sacola.size) return;
+    const falta = [campos.nome, campos.endereco].filter(c => !c.value.trim());
+    if (!falta.length) return;
+    e.preventDefault();
+    falta.forEach(c => c.setAttribute('aria-invalid', 'true'));
+    campoErro.textContent = falta.length > 1 ? 'Preencha seu nome e o endereço de entrega.' : `Preencha ${falta[0] === campos.nome ? 'seu nome' : 'o endereço de entrega'}.`;
+    campoErro.hidden = false;
+    falta[0].focus();
+  });
+
   function pintarSacola() {
     const itens = [...sacola];
     const total = itens.reduce((s, [, i]) => s + i.centavos * i.qtd, 0);
@@ -1203,10 +1264,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       return li;
     }));
     itensMenu.forEach((b, nome) => { b.textContent = sacola.get(nome)?.qtd || '+'; });
-    const msg = qtd
-      ? ['Olá, quero fazer um pedido:', ...itens.map(([nome, i]) => `${i.qtd}x ${nome} (${reais(i.centavos)})`), `Total: ${reais(total)}`].join('\n')
-      : 'Olá, quero fazer um pedido';
-    pedidoLink.href = `${pedidoBase}?text=${encodeURIComponent(msg)}`;
+    montarMensagem();
     pedidoResumo.textContent = qtd ? `${qtd} ${qtd > 1 ? 'itens' : 'item'} · ${reais(total)}` : 'Já vai com "Olá, quero fazer um pedido"';
   }
   function adicionar(nome, preco) {

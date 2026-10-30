@@ -608,6 +608,14 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .sacola-total b{ font-family:var(--f-mono); font-size:1.15rem; }
 .sacola-mais{ min-height:44px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 .sacola-dados{ display:grid; gap:12px; margin:4px 0 2px; }
+.entrega{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0; padding:0; border:0; }
+.entrega legend{ margin-bottom:5px; padding:0; font-weight:600; font-size:.95rem; letter-spacing:.02em; }
+.entrega label{ position:relative; display:block; cursor:pointer; }
+.entrega input{ position:absolute; inset:0; opacity:0; margin:0; cursor:pointer; }
+.entrega span{ display:grid; place-items:center; min-height:46px; padding:6px; text-align:center; font-weight:600; font-size:1rem; line-height:1.1; background:#fff; border:2.5px solid var(--ink); border-radius:11px; }
+.entrega input:checked + span{ color:var(--cream); background:var(--blue); box-shadow:2px 2px 0 var(--ink); }
+.entrega input:focus-visible + span{ outline:3px solid var(--mustard); outline-offset:2px; }
+.campo[hidden]{ display:none; }
 .campo{ display:block; font-weight:600; font-size:.95rem; letter-spacing:.02em; }
 .campo small{ font-weight:400; opacity:.7; }
 .campo input, .campo textarea{
@@ -1086,10 +1094,15 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <p class="sacola-total"><span>Total</span><b data-sacola-total></b></p>
       <button class="sacola-mais" type="button" data-sacola-mais>+ Adicionar mais itens</button>
       <div class="sacola-dados">
+        <fieldset class="entrega">
+          <legend>Como quer receber?</legend>
+          <label><input type="radio" name="entrega" value="entrega" checked><span>Entrega</span></label>
+          <label><input type="radio" name="entrega" value="retirada"><span>Retirar na loja</span></label>
+        </fieldset>
         <label class="campo">Nome
           <input type="text" data-campo="nome" name="nome" autocomplete="name" required>
         </label>
-        <label class="campo">Endereço de entrega
+        <label class="campo" data-campo-endereco>Endereço de entrega
           <input type="text" data-campo="endereco" name="endereco" autocomplete="street-address" placeholder="Rua, número e bairro" required>
         </label>
         <label class="campo">Observações <small>(opcional)</small>
@@ -1207,6 +1220,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
   const campos = { nome: $('[data-campo="nome"]'), endereco: $('[data-campo="endereco"]'), obs: $('[data-campo="obs"]') };
   const campoErro = $('[data-campo-erro]');
+  const campoEndereco = $('[data-campo-endereco]');
+  const retirada = $('input[name="entrega"][value="retirada"]');
 
   function montarMensagem() {
     const itens = [...sacola];
@@ -1219,7 +1234,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
           `Total: ${reais(total)}`,
           '',
           `Nome: ${nome}`,
-          `Endereço: ${endereco}`,
+          retirada.checked ? 'Retirada na loja' : `Endereço: ${endereco}`,
           ...(obs ? [`Observações: ${obs}`] : []),
         ].join('\n')
       : 'Olá, quero fazer um pedido';
@@ -1230,10 +1245,17 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     campoErro.hidden = true;
     montarMensagem();
   }));
-  // com itens na sacola, nome e endereço são obrigatórios antes de abrir o WhatsApp
+  // retirar na loja dispensa o endereço
+  $$('input[name="entrega"]').forEach(r => r.addEventListener('change', () => {
+    campoEndereco.hidden = retirada.checked;
+    campos.endereco.removeAttribute('aria-invalid');
+    campoErro.hidden = true;
+    montarMensagem();
+  }));
+  // com itens na sacola, nome e (na entrega) endereço são obrigatórios antes de abrir o WhatsApp
   pedidoLink.addEventListener('click', e => {
     if (!sacola.size) return;
-    const falta = [campos.nome, campos.endereco].filter(c => !c.value.trim());
+    const falta = [campos.nome, ...(retirada.checked ? [] : [campos.endereco])].filter(c => !c.value.trim());
     if (!falta.length) return;
     e.preventDefault();
     falta.forEach(c => c.setAttribute('aria-invalid', 'true'));

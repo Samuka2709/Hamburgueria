@@ -484,6 +484,7 @@ body::after{
 .group-head h3{ font-family:var(--f-display); font-weight:400; font-size:clamp(2.7rem, 10vw, 4.4rem); line-height:1; text-transform:uppercase; }
 .group-head span{ font-family:var(--f-mono); font-size:.78rem; font-weight:700; letter-spacing:.12em; color:var(--red); }
 .items{ display:grid; }
+.item{ cursor:pointer; }
 .item{ padding:16px 0 18px; border-bottom:2px dashed rgba(14,14,20,.22); }
 .item-top{ display:flex; align-items:baseline; gap:10px; }
 .item h4{ font-weight:600; font-size:1.22rem; letter-spacing:.02em; text-transform:uppercase; line-height:1.2; }
@@ -1000,7 +1001,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       </div>
       <div>
         <h3>Contato</h3>
-        <p><a href="https://wa.me/5573900000000?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">WhatsApp (73) 90000-0000</a></p>
+        <p><a href="https://wa.me/5573998258544?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">WhatsApp (73) 90000-0000</a></p>
         <p><a href="https://www.instagram.com/brasasmash" target="_blank" rel="noopener">Instagram @brasasmash</a></p>
       </div>
       <div>
@@ -1040,9 +1041,9 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <h2 id="pedido-title">Pedir agora</h2>
     <p class="status" data-status></p>
 
-    <a class="opt opt--main" href="https://wa.me/5573900000000?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">
+    <a class="opt opt--main" data-pedido-link href="https://wa.me/5573998258544?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido" target="_blank" rel="noopener">
       <span class="opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 18.5 5.3 15A7.8 7.8 0 1 1 8.6 18Z"/><path d="M9 10.5h6M9 13.5h4"/></svg></span>
-      <span><strong>Pedir pelo WhatsApp</strong><small>Já vai com "Olá, quero fazer um pedido"</small></span>
+      <span><strong>Pedir pelo WhatsApp</strong><small data-pedido-resumo>Já vai com "Olá, quero fazer um pedido"</small></span>
       <svg class="opt-go" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
     </a>
     <a class="opt" href="tel:+5573900000000">
@@ -1055,7 +1056,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <span><strong>Como chegar</strong><small>Rua Exemplo, 100 · Pontal, Ilhéus-BA</small></span>
       <svg class="opt-go" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
     </a>
-    <p class="sheet-note">Site de demonstração: telefone e endereço são fictícios.</p>
+    <p class="sheet-note">Site de demonstração: marca, ligação e endereço são fictícios.</p>
   </div>
 </dialog>
 
@@ -1137,7 +1138,29 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     dlg.classList.add('is-closing');
     setTimeout(() => { dlg.classList.remove('is-closing'); dlg.close(); }, 230);
   }
-  $$('[data-pedir]').forEach(b => b.addEventListener('click', openPedido));
+  // o pedido leva para o WhatsApp o item escolhido no card ou no cardápio
+  const pedidoLink = $('[data-pedido-link]'), pedidoResumo = $('[data-pedido-resumo]');
+  const pedidoBase = pedidoLink.href.split('?')[0];
+  function escolher(item) {
+    const msg = item ? `Olá, quero pedir: 1x ${item}` : 'Olá, quero fazer um pedido';
+    pedidoLink.href = `${pedidoBase}?text=${encodeURIComponent(msg)}`;
+    pedidoResumo.textContent = item ? `1x ${item}` : 'Já vai com "Olá, quero fazer um pedido"';
+  }
+  $('[data-pedir]').forEach(b => b.addEventListener('click', e => {
+    const card = b.closest('.card');
+    escolher(card ? `${card.querySelector('h3').textContent.trim()} (${card.querySelector('.price').textContent.trim()})` : '');
+    openPedido(e);
+  }));
+  $('.item').forEach(li => {
+    li.tabIndex = 0; li.setAttribute('role', 'button');
+    const pedir = e => {
+      const nome = li.querySelector('h4').firstChild.textContent.trim();
+      escolher(`${nome} (${li.querySelector('.item-price').textContent.trim()})`);
+      openPedido(e);
+    };
+    li.addEventListener('click', pedir);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter') pedir(e); });
+  });
   $('.sheet-close').addEventListener('click', closePedido);
   dlg.addEventListener('cancel', e => { e.preventDefault(); closePedido(); });
   dlg.addEventListener('click', e => { if (e.target === dlg) closePedido(); });

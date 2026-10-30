@@ -1,4 +1,4 @@
-FOTOS DO SITE BRASA SMASH (demonstração)
+FOTOS DO SITE GRIDDLEBIRD (demonstração)
 
 Coloque aqui as fotos com exatamente estes nomes. Assim que o arquivo existir,
 o site mostra a foto no lugar do espaço reservado, sem mexer no código.
@@ -9,10 +9,10 @@ hero.webp              -> abertura: hambúrguer em camadas com FUNDO TRANSPARENT
 polaroid-1.jpg         -> manifesto, polaroid 1 (a chapa)
 polaroid-2.jpg         -> manifesto, polaroid 2 (borda crocante de perto)
 polaroid-3.jpg         -> manifesto, polaroid 3 (milkshake)
-brasa-classico.jpg     -> mais vendidos
+classic-griddle.jpg     -> mais vendidos
 batata-recheada.jpg    -> mais vendidos
 milkshake-baunilha.jpg -> mais vendidos
-brasa-apimentado.jpg   -> mais vendidos
+spicy-griddle.jpg   -> mais vendidos
 historia-1.jpg         -> nossa história (a primeira chapa)
 historia-2.jpg         -> nossa história (fila na calçada)
 historia-3.jpg         -> nossa história (a equipe)

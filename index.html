@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Brasa Smash · Smash burgers in Pontal, Ilhéus-BA</title>
-<meta name="description" content="Brasa Smash: smash burgers made with fresh beef pressed on the griddle, with crispy edges. Pontal, Ilhéus-BA. Demo site with a fictional brand and data.">
+<title>Griddlebird · Smash burgers in Pontal, Ilhéus-BA</title>
+<meta name="description" content="Griddlebird: smash burgers made with fresh beef pressed on the griddle, with crispy edges. Pontal, Ilhéus-BA. Demo site with a fictional brand and data.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://smashburger-ruddy.vercel.app/">
-<meta property="og:title" content="Brasa Smash · Smash burgers in Pontal, Ilhéus-BA">
+<meta property="og:title" content="Griddlebird · Smash burgers in Pontal, Ilhéus-BA">
 <meta property="og:description" content="Fresh beef pressed on the griddle, crispy edges and melting cheese. Demo site with a fictional brand and data.">
 <meta property="og:image" content="https://smashburger-ruddy.vercel.app/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Brasa Smash: double smash burger stacked in layers over a blue plate">
+<meta property="og:image:alt" content="Griddlebird: double smash burger stacked in layers over a blue plate">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#DC1811">
 <meta name="color-scheme" content="only light">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23E01A12'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='26' text-anchor='middle' fill='%23FFF4E2'%3EBS%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23E01A12'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='26' text-anchor='middle' fill='%23FFF4E2'%3EGB%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/league-gothic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -540,7 +540,7 @@ body::after{
 /* ============ RODAPÉ ============ */
 .foot{ position:relative; overflow:clip; background:var(--ink); color:var(--cream); padding:96px 0 30px; }
 .foot-logo{
-  font-family:var(--f-sticker); font-size:clamp(3.6rem, 21vw, 9rem); line-height:.92; letter-spacing:.01em;
+  font-family:var(--f-sticker); font-size:clamp(3.2rem, 18vw, 9rem); line-height:.92; letter-spacing:.01em;
   color:var(--red); text-shadow:.045em .045em 0 var(--blue);
 }
 .foot-logo span{ display:block; color:var(--cream); }
@@ -700,9 +700,9 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 <!-- ============ 1. MENU FIXO ============ -->
 <header class="hdr" id="topo">
   <div class="wrap hdr-in">
-    <a class="logo" href="#home" aria-label="Brasa Smash, back to top">
-      <span class="burst" aria-hidden="true"><span>BS</span></span>
-      <span class="logo-text">BRASA <em>SMASH</em></span>
+    <a class="logo" href="#home" aria-label="Griddlebird, back to top">
+      <span class="burst" aria-hidden="true"><span>GB</span></span>
+      <span class="logo-text">GRIDDLE<em>BIRD</em></span>
     </a>
     <nav class="nav" aria-label="Main">
       <ul>
@@ -729,7 +729,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <li><a class="mlink" href="#contact">Contact</a></li>
   </ul>
   <a class="btn btn--yellow" href="#contact" data-pedir>Order now</a>
-  <p class="mnav-info">Rua Exemplo, 100 · Pontal, Ilhéus-BA<br>Tuesday to Sunday, 6 pm to 11 pm<br>(73) 90000-0000 · @brasasmash</p>
+  <p class="mnav-info">Rua Exemplo, 100 · Pontal, Ilhéus-BA<br>Tuesday to Sunday, 6 pm to 11 pm<br>(73) 90000-0000</p>
 </div>
 
 <main id="conteudo">
@@ -831,14 +831,14 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <div class="printer">
         <div class="printer-top" aria-hidden="true">
           <span class="printer-led">PRINTING</span>
-          <span>BRASA·80</span>
+          <span>GRIDDLE·80</span>
           <span class="printer-slot"></span>
         </div>
         <div class="paper-window">
           <div class="paper-cover" aria-hidden="true"></div>
           <div class="receipt is-stamped" id="receipt">
             <div class="r-center">
-              <div class="r-logo">BRASA SMASH</div>
+              <div class="r-logo">GRIDDLEBIRD</div>
               <div>Rua Exemplo, 100 · Pontal</div>
               <div>Ilhéus-BA · (73) 90000-0000</div>
               <div class="r-small">DEMO RECEIPT</div>
@@ -880,10 +880,10 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <div class="cards">
       <article class="card">
         <span class="stk" style="--r:8deg">Most ordered</span>
-        <!-- TROCAR FOTO: fotos/brasa-classico.webp -->
-        <div class="ph"><span class="ph-tag"><b>Classic Brasa</b>fotos/brasa-classico.webp</span><img src="fotos/brasa-classico.webp" alt="Classic Brasa: two smashed patties with cheddar on a brioche bun" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/classic-griddle.webp -->
+        <div class="ph"><span class="ph-tag"><b>Classic Griddle</b>fotos/classic-griddle.webp</span><img src="fotos/classic-griddle.webp" alt="Classic Griddle: two smashed patties with cheddar on a brioche bun" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
-          <h3>Classic Brasa</h3>
+          <h3>Classic Griddle</h3>
           <p>Two smashed patties, cheddar, griddled onions, pickles and house sauce.</p>
           <div class="card-foot"><span class="price">$11.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
         </div>
@@ -911,10 +911,10 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
       <article class="card">
         <span class="stk stk--red" style="--r:-7deg">Spicy</span>
-        <!-- TROCAR FOTO: fotos/brasa-apimentado.webp -->
-        <div class="ph"><span class="ph-tag"><b>Spicy Brasa</b>fotos/brasa-apimentado.webp</span><img src="fotos/brasa-apimentado.webp" alt="Spicy Brasa with jalapeño and chipotle sauce" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+        <!-- TROCAR FOTO: fotos/spicy-griddle.webp -->
+        <div class="ph"><span class="ph-tag"><b>Spicy Griddle</b>fotos/spicy-griddle.webp</span><img src="fotos/spicy-griddle.webp" alt="Spicy Griddle with jalapeño and chipotle sauce" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <div class="card-body">
-          <h3>Spicy Brasa</h3>
+          <h3>Spicy Griddle</h3>
           <p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p>
           <div class="card-foot"><span class="price">$12.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
         </div>
@@ -952,8 +952,8 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <div class="menu-group" data-cat="hamburgueres">
         <div class="group-head"><h3>Burgers</h3><span>05 items</span></div>
         <ul class="items">
-          <li class="item"><div class="item-top"><h4>Classic Brasa <span class="stk">Most ordered</span></h4><span class="lead"></span><span class="item-price">$11.90</span></div><p>Two 80 g smashed patties, cheddar, griddled onions, pickles and house sauce on a brioche bun.</p></li>
-          <li class="item"><div class="item-top"><h4>Spicy Brasa <span class="stk stk--red">Spicy</span></h4><span class="lead"></span><span class="item-price">$12.90</span></div><p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p></li>
+          <li class="item"><div class="item-top"><h4>Classic Griddle <span class="stk">Most ordered</span></h4><span class="lead"></span><span class="item-price">$11.90</span></div><p>Two 80 g smashed patties, cheddar, griddled onions, pickles and house sauce on a brioche bun.</p></li>
+          <li class="item"><div class="item-top"><h4>Spicy Griddle <span class="stk stk--red">Spicy</span></h4><span class="lead"></span><span class="item-price">$12.90</span></div><p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p></li>
           <li class="item"><div class="item-top"><h4>Double Bacon</h4><span class="lead"></span><span class="item-price">$13.90</span></div><p>Two smashed patties, double cheddar, crispy bacon and house barbecue sauce.</p></li>
           <li class="item"><div class="item-top"><h4>Pontal Coalho <span class="stk stk--blue">New</span></h4><span class="lead"></span><span class="item-price">$12.50</span></div><p>Smashed patty with griddled coalho cheese, caramelized onions and a drizzle of honey.</p></li>
           <li class="item"><div class="item-top"><h4>Simple Smash</h4><span class="lead"></span><span class="item-price">$8.90</span></div><p>One 80 g smashed patty, prato cheese, ketchup and mustard. No fuss.</p></li>
@@ -1007,7 +1007,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <p class="label">Where we came from</p>
       <h2 class="big-title" id="hist-title">Our story</h2>
       <p class="hand">it started on a tiny 60 cm griddle</p>
-      <p class="txt">Brasa Smash was born in a garage in Pontal, with a small griddle, a heavy spatula and half a dozen neighbors as its first customers. The idea was simple: a ball of fresh beef, pressed hard onto a very hot griddle until the edges turned lacy and crisp.</p>
+      <p class="txt">Griddlebird was born in a garage in Pontal, with a small griddle, a heavy spatula and half a dozen neighbors as its first customers. The idea was simple: a ball of fresh beef, pressed hard onto a very hot griddle until the edges turned lacy and crisp.</p>
       <p class="txt">The neighborhood liked it, the line reached the sidewalk and the griddle got too small. Today the place is bigger, but the method is the same: everything made to order, with few ingredients and a griddle that’s always very hot. Walk down Rua Exemplo after six and you’ll smell it before you see the sign.</p>
       <div class="hist-stks" aria-hidden="true">
         <span class="stk" style="--r:-5deg">Made to order</span>
@@ -1038,7 +1038,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 <!-- ============ 9. RODAPÉ ============ -->
 <footer class="foot" id="contact">
   <div class="wrap">
-    <p class="foot-logo" aria-label="Brasa Smash">BRASA<span>SMASH</span></p>
+    <p class="foot-logo" aria-label="Griddlebird">GRIDDLE<span>BIRD</span></p>
     <div class="foot-cta">
       <a class="btn btn--yellow" href="#contact" data-pedir>Order now</a>
       <p class="hand">the griddle’s already hot</p>
@@ -1053,7 +1053,6 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       <div>
         <h3>Contact</h3>
         <p><a href="tel:+5573900000000">(73) 90000-0000</a></p>
-        <p><a href="https://www.instagram.com/brasasmash" target="_blank" rel="noopener">Instagram @brasasmash</a></p>
       </div>
       <div>
         <h3>Hours</h3>
@@ -1076,7 +1075,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 
     <div class="foot-bottom">
       <p><strong>Demo site. Fictional brand and data.</strong></p>
-      <p>© <span id="ano">2026</span> Brasa Smash · Pontal, Ilhéus-BA</p>
+      <p>© <span id="ano">2026</span> Griddlebird · Pontal, Ilhéus-BA</p>
     </div>
   </div>
 </footer>

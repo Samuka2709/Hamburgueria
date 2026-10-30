@@ -1,4 +1,4 @@
-# Brasa Smash
+# Griddlebird
 
 Site de demonstração para portfólio de uma hamburgueria smash fictícia no Pontal, Ilhéus-BA.
 Marca, endereço, telefone, cardápio e preços são fictícios.

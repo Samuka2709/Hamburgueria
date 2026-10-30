@@ -14,7 +14,7 @@ Uma página só (`index.html`), com HTML, CSS e JavaScript juntos, sem dependên
 - Cupom fiscal impresso conforme o scroll
 - Mais vendidos e cardápio com filtro por categoria
 - Nossa História com colagem de fotos
-- Janela "Pedir agora" (gaveta no celular) com WhatsApp, ligação e mapa
+- Janela "Pedir agora" (gaveta no celular) com pedido de demonstração, ligação e mapa
 - Respeita a preferência de movimento reduzido do sistema
 
 ## Como abrir

@@ -623,6 +623,9 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .entrega span{ display:grid; place-items:center; min-height:46px; padding:6px; text-align:center; font-weight:600; font-size:1rem; line-height:1.1; background:#fff; border:2.5px solid var(--ink); border-radius:11px; }
 .entrega input:checked + span{ color:var(--cream); background:var(--blue); box-shadow:2px 2px 0 var(--ink); }
 .entrega input:focus-visible + span{ outline:3px solid var(--mustard); outline-offset:2px; }
+.opcoes-grupo{ margin-top:14px; }
+.opcoes-grupo small{ display:block; margin-top:2px; font-family:var(--f-mono); font-weight:400; font-size:.76rem; }
+.opcoes-add{ width:100%; margin-top:18px; }
 .campo[hidden]{ display:none; }
 .campo{ display:block; font-weight:600; font-size:.95rem; letter-spacing:.02em; }
 .campo small{ font-weight:400; opacity:.7; }
@@ -1144,6 +1147,32 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   </div>
 </dialog>
 
+<dialog class="sheet" id="opcoes" aria-labelledby="opcoes-title">
+  <div class="sheet-inner">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <button class="sheet-close" type="button" aria-label="Close" data-opcoes-fechar>
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 4 L16 16 M16 4 L4 16"/></svg>
+    </button>
+    <p class="hand">make it yours</p>
+    <h2 id="opcoes-title"></h2>
+    <fieldset class="entrega opcoes-grupo">
+      <legend>Add extras</legend>
+      <label><input type="checkbox" value="Extra patty" data-centavos="300"><span>Extra patty<small>+$3.00</small></span></label>
+      <label><input type="checkbox" value="Bacon" data-centavos="200"><span>Bacon<small>+$2.00</small></span></label>
+      <label><input type="checkbox" value="Extra cheese" data-centavos="100"><span>Extra cheese<small>+$1.00</small></span></label>
+      <label><input type="checkbox" value="Jalapeños" data-centavos="75"><span>Jalapeños<small>+$0.75</small></span></label>
+    </fieldset>
+    <fieldset class="entrega opcoes-grupo">
+      <legend>Leave out</legend>
+      <label><input type="checkbox" value="No onions"><span>No onions</span></label>
+      <label><input type="checkbox" value="No pickles"><span>No pickles</span></label>
+      <label><input type="checkbox" value="No sauce"><span>No sauce</span></label>
+      <label><input type="checkbox" value="Lettuce wrap"><span>Lettuce wrap</span></label>
+    </fieldset>
+    <button class="btn btn--blue opcoes-add" type="button" data-opcoes-add>Add to order · <span data-opcoes-total></span></button>
+  </div>
+</dialog>
+
 <script>
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -1216,18 +1245,19 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     dlg.showModal();
     html.classList.add('lock');
   }
-  function closePedido() {
-    if (!dlg.open || dlg.classList.contains('is-closing')) return;
-    if (reduce) { dlg.close(); return; }
-    dlg.classList.add('is-closing');
-    setTimeout(() => { dlg.classList.remove('is-closing'); dlg.close(); }, 230);
+  function fecharJanela(d) {
+    if (!d.open || d.classList.contains('is-closing')) return;
+    if (reduce) { d.close(); return; }
+    d.classList.add('is-closing');
+    setTimeout(() => { d.classList.remove('is-closing'); d.close(); }, 230);
   }
+  const closePedido = () => fecharJanela(dlg);
   /* ---------- sacola: junta vários itens e fecha o pedido (demonstração, nada é enviado) ---------- */
   const pedidoLink = $('[data-pedido-link]'), pedidoResumo = $('[data-pedido-resumo]');
   const pedidoAcao = $('[data-pedido-acao]'), pedidoOk = $('[data-pedido-ok]');
   const sacolaBox = $('[data-sacola]'), sacolaLista = $('[data-sacola-lista]'), sacolaTotal = $('[data-sacola-total]');
   const bar = $('[data-sacola-bar]'), barQtd = $('[data-bar-qtd]'), barTotal = $('[data-bar-total]');
-  const sacola = new Map(); // nome -> { centavos, qtd }
+  const sacola = new Map(); // nome + opções -> { nome, centavos, qtd, extras }
   const itensMenu = new Map(); // nome -> botão "+" do cardápio
   const dolares = c => '$' + (c / 100).toFixed(2);
 
@@ -1279,13 +1309,14 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     sacolaBox.hidden = bar.hidden = !qtd;
     barQtd.textContent = qtd;
     barTotal.textContent = sacolaTotal.textContent = dolares(total);
-    sacolaLista.replaceChildren(...itens.map(([nome, i]) => {
+    sacolaLista.replaceChildren(...itens.map(([chave, i]) => {
+      const nome = i.nome;
       const li = document.createElement('li');
-      li.dataset.nome = nome;
+      li.dataset.chave = chave;
       li.innerHTML = '<span class="sacola-nome"></span><span class="sacola-passo"><button type="button" data-passo="-1"></button><b></b><button type="button" data-passo="1">+</button></span>';
       const rotulo = li.querySelector('.sacola-nome');
       rotulo.textContent = nome;
-      rotulo.append(Object.assign(document.createElement('small'), { textContent: dolares(i.centavos) }));
+      rotulo.append(Object.assign(document.createElement('small'), { textContent: [dolares(i.centavos), ...i.extras].join(' · ') }));
       li.querySelector('b').textContent = i.qtd;
       const menos = li.querySelector('[data-passo="-1"]');
       menos.textContent = i.qtd > 1 ? '−' : '×';
@@ -1293,33 +1324,61 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       li.querySelector('[data-passo="1"]').setAttribute('aria-label', 'One more ' + nome);
       return li;
     }));
-    itensMenu.forEach((b, nome) => { b.textContent = sacola.get(nome)?.qtd || '+'; });
+    itensMenu.forEach((b, nome) => { b.textContent = itens.reduce((s, [, i]) => s + (i.nome === nome ? i.qtd : 0), 0) || '+'; });
     pedidoAcao.textContent = qtd ? 'Place order' : 'See the menu';
     pedidoResumo.textContent = qtd ? `${qtd} ${qtd > 1 ? 'items' : 'item'} · ${dolares(total)}` : 'Pick your items first';
   }
-  function adicionar(nome, preco) {
-    const i = sacola.get(nome);
-    if (i) i.qtd++; else sacola.set(nome, { centavos: +preco.replace(/\D/g, ''), qtd: 1 });
+  function adicionar(nome, centavos, extras = []) {
+    const chave = [nome, ...extras].join('|');
+    const i = sacola.get(chave);
+    if (i) i.qtd++; else sacola.set(chave, { nome, centavos, qtd: 1, extras });
     pintarSacola();
     $('[data-sacola-aviso]').textContent = nome + ' added to your order';
     if (!reduce) bar.animate([{ transform: 'scale(1.05)' }, { transform: 'none' }], { duration: 180, easing: 'ease-out' });
   }
+  /* ---------- opções dos hambúrgueres: extras mudam o preço na hora ---------- */
+  const dlgOpcoes = $('#opcoes'), opcoes = $$('input', dlgOpcoes), opcoesTotal = $('[data-opcoes-total]');
+  const burgers = new Set($$('.menu-group[data-cat="hamburgueres"] h4').map(h => h.firstChild.textContent.trim()));
+  let escolha = null;
+  const marcadas = () => opcoes.filter(o => o.checked);
+  const precoEscolha = () => escolha.centavos + marcadas().reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
+  function escolher(nome, preco) {
+    const centavos = +preco.replace(/\D/g, '');
+    if (!burgers.has(nome)) { adicionar(nome, centavos); return true; }
+    escolha = { nome, centavos };
+    opcoes.forEach(o => { o.checked = false; });
+    $('#opcoes-title').textContent = nome;
+    opcoesTotal.textContent = dolares(centavos);
+    dlgOpcoes.showModal();
+    html.classList.add('lock');
+    return false;
+  }
+  opcoes.forEach(o => o.addEventListener('change', () => { opcoesTotal.textContent = dolares(precoEscolha()); }));
+  $('[data-opcoes-add]').addEventListener('click', () => {
+    adicionar(escolha.nome, precoEscolha(), marcadas().map(o => o.value));
+    fecharJanela(dlgOpcoes);
+  });
+  $('[data-opcoes-fechar]').addEventListener('click', () => fecharJanela(dlgOpcoes));
+  dlgOpcoes.addEventListener('cancel', e => { e.preventDefault(); fecharJanela(dlgOpcoes); });
+  dlgOpcoes.addEventListener('click', e => { if (e.target === dlgOpcoes) fecharJanela(dlgOpcoes); });
+  dlgOpcoes.addEventListener('close', () => html.classList.remove('lock'));
+
   $$('[data-pedir]').forEach(b => b.addEventListener('click', openPedido));
   bar.addEventListener('click', openPedido);
   $('[data-sacola-mais]').addEventListener('click', closePedido);
   sacolaLista.addEventListener('click', e => {
     const b = e.target.closest('[data-passo]');
     if (!b) return;
-    const nome = b.closest('li').dataset.nome, i = sacola.get(nome);
+    const chave = b.closest('li').dataset.chave, i = sacola.get(chave);
     i.qtd += +b.dataset.passo;
-    if (!i.qtd) sacola.delete(nome);
+    if (!i.qtd) sacola.delete(chave);
     pintarSacola();
   });
   $$('[data-add]').forEach(b => {
     let volta = 0;
     b.addEventListener('click', () => {
       const card = b.closest('.card');
-      adicionar(card.querySelector('h3').textContent.trim(), card.querySelector('.price').textContent);
+      if (!escolher(card.querySelector('h3').textContent.trim(), card.querySelector('.price').textContent)) return;
       b.textContent = 'Added';
       clearTimeout(volta);
       volta = setTimeout(() => { b.textContent = 'Add'; }, 1100);
@@ -1334,7 +1393,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     add.setAttribute('aria-label', 'Add ' + nome);
     $('.item-top', li).append(add);
     itensMenu.set(nome, add);
-    li.addEventListener('click', () => adicionar(nome, $('.item-price', li).textContent));
+    li.addEventListener('click', () => escolher(nome, $('.item-price', li).textContent));
   });
   $('.sheet-close').addEventListener('click', closePedido);
   dlg.addEventListener('cancel', e => { e.preventDefault(); closePedido(); });

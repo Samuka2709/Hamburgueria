@@ -611,6 +611,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .sacola-passo button:active{ transform:scale(.95); }
 .sacola-total{ display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 2px; font-weight:600; font-size:1.1rem; text-transform:uppercase; letter-spacing:.03em; }
 .sacola-total b{ font-family:var(--f-mono); font-size:1.15rem; }
+.sacola-editar{ display:block; min-height:32px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-size:.9rem; font-weight:600; letter-spacing:.02em; text-transform:uppercase; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 .sacola-mais{ min-height:44px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 @media (hover:hover){ .item:hover h4{ color:var(--blue); } }
 ::selection{ background:var(--mustard); color:var(--ink); }
@@ -1319,6 +1320,11 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
       const rotulo = li.querySelector('.sacola-nome');
       rotulo.textContent = nome;
       rotulo.append(Object.assign(document.createElement('small'), { textContent: [dolares(i.centavos), ...i.extras].join(' · ') }));
+      if (burgers.has(nome)) {
+        const editar = Object.assign(document.createElement('button'), { type: 'button', className: 'sacola-editar', textContent: 'Customize' });
+        editar.setAttribute('aria-label', 'Customize ' + nome);
+        rotulo.append(editar);
+      }
       li.querySelector('b').textContent = i.qtd;
       const menos = li.querySelector('[data-passo="-1"]');
       menos.textContent = i.qtd > 1 ? '−' : '×';
@@ -1341,34 +1347,49 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   /* ---------- opções dos hambúrgueres: extras mudam o preço na hora ---------- */
   const dlgOpcoes = $('#opcoes'), opcoes = $$('input', dlgOpcoes), opcoesTotal = $('[data-opcoes-total]');
   const burgers = new Set($$('.menu-group[data-cat="hamburgueres"] h4').map(h => h.firstChild.textContent.trim()));
-  let escolha = null;
+  let escolha = null, editando = null;
   const marcadas = () => opcoes.filter(o => o.checked);
   const precoEscolha = () => escolha.centavos + marcadas().reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
   function escolher(nome, preco) {
     const centavos = +preco.replace(/\D/g, '');
     if (!burgers.has(nome)) { adicionar(nome, centavos); return true; }
+    abrirOpcoes(nome, centavos);
+    return false;
+  }
+  function abrirOpcoes(nome, centavos, extras = []) {
     escolha = { nome, centavos };
-    opcoes.forEach(o => { o.checked = false; });
+    opcoes.forEach(o => { o.checked = extras.includes(o.value); });
     $('#opcoes-title').textContent = nome;
-    opcoesTotal.textContent = dolares(centavos);
+    opcoesTotal.textContent = dolares(precoEscolha());
     dlgOpcoes.showModal();
     html.classList.add('lock');
-    return false;
   }
   opcoes.forEach(o => o.addEventListener('change', () => { opcoesTotal.textContent = dolares(precoEscolha()); }));
   $('[data-opcoes-add]').addEventListener('click', () => {
+    if (editando) {
+      const i = sacola.get(editando);
+      if (i && !--i.qtd) sacola.delete(editando);
+      editando = null;
+    }
     adicionar(escolha.nome, precoEscolha(), marcadas().map(o => o.value));
     fecharJanela(dlgOpcoes);
   });
   $('[data-opcoes-fechar]').addEventListener('click', () => fecharJanela(dlgOpcoes));
   dlgOpcoes.addEventListener('cancel', e => { e.preventDefault(); fecharJanela(dlgOpcoes); });
   dlgOpcoes.addEventListener('click', e => { if (e.target === dlgOpcoes) fecharJanela(dlgOpcoes); });
-  dlgOpcoes.addEventListener('close', () => html.classList.remove('lock'));
+  dlgOpcoes.addEventListener('close', () => { editando = null; if (!dlg.open) html.classList.remove('lock'); });
 
   $$('[data-pedir]').forEach(b => b.addEventListener('click', openPedido));
   bar.addEventListener('click', openPedido);
   $('[data-sacola-mais]').addEventListener('click', closePedido);
   sacolaLista.addEventListener('click', e => {
+    if (e.target.closest('.sacola-editar')) {
+      const chave = e.target.closest('li').dataset.chave, i = sacola.get(chave);
+      const extraPago = opcoes.filter(o => i.extras.includes(o.value)).reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
+      editando = chave;
+      abrirOpcoes(i.nome, i.centavos - extraPago, i.extras);
+      return;
+    }
     const b = e.target.closest('[data-passo]');
     if (!b) return;
     const chave = b.closest('li').dataset.chave, i = sacola.get(chave);

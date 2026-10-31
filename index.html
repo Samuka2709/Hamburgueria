@@ -611,7 +611,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .sacola-passo button:active{ transform:scale(.95); }
 .sacola-total{ display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 2px; font-weight:600; font-size:1.1rem; text-transform:uppercase; letter-spacing:.03em; }
 .sacola-total b{ font-family:var(--f-mono); font-size:1.15rem; }
-.sacola-editar{ display:block; min-height:32px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-size:.9rem; font-weight:600; letter-spacing:.02em; text-transform:uppercase; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.sacola-editar{ display:block; min-height:36px; margin-top:6px; padding:4px 12px; color:var(--ink); background:var(--mustard); border:2px solid var(--ink); border-radius:9px; font:inherit; font-size:.9rem; font-weight:600; letter-spacing:.03em; text-transform:uppercase; cursor:pointer; }
 .sacola-mais{ min-height:44px; padding:0; background:none; border:0; color:var(--blue); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
 @media (hover:hover){ .item:hover h4{ color:var(--blue); } }
 ::selection{ background:var(--mustard); color:var(--ink); }
@@ -624,7 +624,6 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .entrega span{ display:grid; place-items:center; min-height:46px; padding:6px; text-align:center; font-weight:600; font-size:1rem; line-height:1.1; background:#fff; border:2.5px solid var(--ink); border-radius:11px; }
 .entrega input:checked + span{ color:var(--cream); background:var(--blue); box-shadow:2px 2px 0 var(--ink); }
 .entrega input:focus-visible + span{ outline:3px solid var(--mustard); outline-offset:2px; }
-.menu-dica{ margin:10px 0 2px; font-weight:600; color:var(--blue); }
 .opcoes-grupo{ margin-top:14px; }
 .opcoes-grupo small{ display:block; margin-top:2px; font-family:var(--f-mono); font-weight:400; font-size:.76rem; }
 .opcoes-add{ width:100%; margin-top:18px; }
@@ -889,7 +888,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Classic Griddle</h3>
           <p>Two smashed patties, cheddar, griddled onions, pickles and house sauce.</p>
-          <div class="card-foot"><span class="price">$11.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Customize</button></div>
+          <div class="card-foot"><span class="price">$11.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
         </div>
       </article>
 
@@ -920,7 +919,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Spicy Griddle</h3>
           <p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p>
-          <div class="card-foot"><span class="price">$12.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Customize</button></div>
+          <div class="card-foot"><span class="price">$12.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
         </div>
       </article>
     </div>
@@ -955,7 +954,6 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <div class="menu-groups" aria-live="polite">
       <div class="menu-group" data-cat="hamburgueres">
         <div class="group-head"><h3>Burgers</h3><span>05 items</span></div>
-        <p class="menu-dica">Tap any burger to add extras or leave things out.</p>
         <ul class="items">
           <li class="item"><div class="item-top"><h4>Classic Griddle <span class="stk">Most ordered</span></h4><span class="lead"></span><span class="item-price">$11.90</span></div><p>Two 3 oz smashed patties, cheddar, griddled onions, pickles and house sauce on a brioche bun.</p></li>
           <li class="item"><div class="item-top"><h4>Spicy Griddle <span class="stk stk--red">Spicy</span></h4><span class="lead"></span><span class="item-price">$12.90</span></div><p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p></li>
@@ -1352,9 +1350,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   const precoEscolha = () => escolha.centavos + marcadas().reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
   function escolher(nome, preco) {
     const centavos = +preco.replace(/\D/g, '');
-    if (!burgers.has(nome)) { adicionar(nome, centavos); return true; }
-    abrirOpcoes(nome, centavos);
-    return false;
+    adicionar(nome, centavos);
   }
   function abrirOpcoes(nome, centavos, extras = []) {
     escolha = { nome, centavos };
@@ -1401,7 +1397,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     let volta = 0;
     b.addEventListener('click', () => {
       const card = b.closest('.card');
-      if (!escolher(card.querySelector('h3').textContent.trim(), card.querySelector('.price').textContent)) return;
+      escolher(card.querySelector('h3').textContent.trim(), card.querySelector('.price').textContent);
       b.textContent = 'Added';
       clearTimeout(volta);
       volta = setTimeout(() => { b.textContent = 'Add'; }, 1100);

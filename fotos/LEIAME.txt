@@ -18,5 +18,6 @@ historia-4.webp         -> nossa história (a fachada)
 CRÉDITOS (Unsplash, Licença da Unsplash)
 historia-2.webp -> Eugeniya Belova, https://unsplash.com/photos/QIFnf9YzPL0
 historia-4.webp -> Valentin (@omikron), https://unsplash.com/photos/oJnTgfEi6p0
+batata-recheada.webp -> fellipe teixeira, https://unsplash.com/photos/zPU61huC8Gc
 
 Originais, versões em JPG e referências ficam em _arquivo/, que não vai para o GitHub.

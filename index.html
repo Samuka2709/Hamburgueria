@@ -623,6 +623,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .entrega span{ display:grid; place-items:center; min-height:46px; padding:6px; text-align:center; font-weight:600; font-size:1rem; line-height:1.1; background:#fff; border:2.5px solid var(--ink); border-radius:11px; }
 .entrega input:checked + span{ color:var(--cream); background:var(--blue); box-shadow:2px 2px 0 var(--ink); }
 .entrega input:focus-visible + span{ outline:3px solid var(--mustard); outline-offset:2px; }
+.menu-dica{ margin:10px 0 2px; font-weight:600; color:var(--blue); }
 .opcoes-grupo{ margin-top:14px; }
 .opcoes-grupo small{ display:block; margin-top:2px; font-family:var(--f-mono); font-weight:400; font-size:.76rem; }
 .opcoes-add{ width:100%; margin-top:18px; }
@@ -887,7 +888,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Classic Griddle</h3>
           <p>Two smashed patties, cheddar, griddled onions, pickles and house sauce.</p>
-          <div class="card-foot"><span class="price">$11.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
+          <div class="card-foot"><span class="price">$11.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Customize</button></div>
         </div>
       </article>
 
@@ -918,7 +919,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
         <div class="card-body">
           <h3>Spicy Griddle</h3>
           <p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p>
-          <div class="card-foot"><span class="price">$12.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Add</button></div>
+          <div class="card-foot"><span class="price">$12.90</span><button class="btn btn--blue btn--sm" type="button" data-add>Customize</button></div>
         </div>
       </article>
     </div>
@@ -953,6 +954,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     <div class="menu-groups" aria-live="polite">
       <div class="menu-group" data-cat="hamburgueres">
         <div class="group-head"><h3>Burgers</h3><span>05 items</span></div>
+        <p class="menu-dica">Tap any burger to add extras or leave things out.</p>
         <ul class="items">
           <li class="item"><div class="item-top"><h4>Classic Griddle <span class="stk">Most ordered</span></h4><span class="lead"></span><span class="item-price">$11.90</span></div><p>Two 3 oz smashed patties, cheddar, griddled onions, pickles and house sauce on a brioche bun.</p></li>
           <li class="item"><div class="item-top"><h4>Spicy Griddle <span class="stk stk--red">Spicy</span></h4><span class="lead"></span><span class="item-price">$12.90</span></div><p>Two smashed patties, pepper jack, jalapeño and chipotle mayo.</p></li>

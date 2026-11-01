@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Griddlebird · Smash burgers in Austin, Texas</title>
-<meta name="description" content="Griddlebird: smash burgers made with fresh beef pressed on the griddle, with crispy edges. Austin, Texas. Demo site with a fictional brand and data.">
+<title>Griddlebird · Smash burgers in Austin, Texas (concept project)</title>
+<!-- Portfolio concept with a fictional brand: keep it out of search results so nobody mistakes it for a real business -->
+<meta name="robots" content="noindex">
+<meta name="description" content="Concept project, not a real restaurant. Griddlebird: smash burgers made with fresh beef pressed on the griddle, with crispy edges. Austin, Texas. Demo site with a fictional brand and data.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://griddlebird.vercel.app/">
-<meta property="og:title" content="Griddlebird · Smash burgers in Austin, Texas">
+<meta property="og:title" content="Griddlebird · Smash burgers in Austin, Texas (concept project)">
 <meta property="og:description" content="Fresh beef pressed on the griddle, crispy edges and melting cheese. Demo site with a fictional brand and data.">
 <meta property="og:image" content="https://griddlebird.vercel.app/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -691,6 +693,21 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   .cupom-track{ height:auto; }
   .cupom-stage{ position:static; height:auto; padding-bottom:96px; }
 }
+/* Concept-project notice: fixed thin bar on top, header sits just below it */
+:root{ --rib:30px; }
+.concept-ribbon{
+  position:fixed; inset:0 0 auto; height:var(--rib); z-index:51;
+  display:grid; place-items:center; padding:0 12px;
+  background:var(--mustard); color:var(--ink);
+  font-size:.75rem; line-height:1.2; text-align:center; overflow:hidden;
+}
+.concept-ribbon p{ margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+.concept-ribbon .short{ display:none; }
+@media (max-width:700px){ .concept-ribbon .long{ display:none; } .concept-ribbon .short{ display:inline; } }
+body{ padding-top:var(--rib); }
+.hdr{ top:var(--rib); }
+.mnav{ top:calc(var(--hdr) + var(--rib)); }
+html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
 </style>
 </head>
 <body>
@@ -699,6 +716,9 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
   <symbol id="d-sol" viewBox="0 0 200 200"><path d="M146 100A46 46 0 1 1 54 100A46 46 0 1 1 146 100ZM155.2 90.5 L196.0 100.0 L155.2 109.5ZM152.5 119.4 L183.1 148.0 L143.1 135.8ZM135.8 143.1 L148.0 183.1 L119.4 152.5ZM109.5 155.2 L100.0 196.0 L90.5 155.2ZM80.6 152.5 L52.0 183.1 L64.2 143.1ZM56.9 135.8 L16.9 148.0 L47.5 119.4ZM44.8 109.5 L4.0 100.0 L44.8 90.5ZM47.5 80.6 L16.9 52.0 L56.9 64.2ZM64.2 56.9 L52.0 16.9 L80.6 47.5ZM90.5 44.8 L100.0 4.0 L109.5 44.8ZM119.4 47.5 L148.0 16.9 L135.8 56.9ZM143.1 64.2 L183.1 52.0 L152.5 80.6Z"/></symbol>
 </svg>
 <a class="skip" href="#conteudo">Skip to content</a>
+<aside class="concept-ribbon" aria-label="About this site">
+  <p><strong>Concept project</strong><span class="long"> · a portfolio design for a fictional restaurant. Name, menu, prices, address and contacts are not real.</span><span class="short"> · fictional restaurant, not a real business</span></p>
+</aside>
 
 <!-- ============ 1. MENU FIXO ============ -->
 <header class="hdr" id="topo">
@@ -1076,7 +1096,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
     </div>
 
     <div class="foot-bottom">
-      <p><strong>Demo site. Fictional brand and data.</strong></p>
+      <p><strong>Concept project: fictional brand, menu, prices and contact details. Not a real restaurant.</strong></p>
       <p>© <span id="ano">2026</span> Griddlebird · Austin, Texas</p>
     </div>
   </div>

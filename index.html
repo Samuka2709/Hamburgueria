@@ -627,6 +627,7 @@ dialog.sheet.is-closing::backdrop{ animation:fadeOut .2s ease forwards; }
 .entrega input:checked + span{ color:var(--cream); background:var(--blue); box-shadow:2px 2px 0 var(--ink); }
 .entrega input:focus-visible + span{ outline:3px solid var(--mustard); outline-offset:2px; }
 .opcoes-grupo{ margin-top:14px; }
+.opcoes-grupo[hidden]{ display:none; }
 .opcoes-grupo small{ display:block; margin-top:2px; font-family:var(--f-mono); font-weight:400; font-size:.76rem; }
 .opcoes-add{ width:100%; margin-top:18px; }
 .campo[hidden]{ display:none; }
@@ -798,8 +799,8 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
 <!-- ============ 3. LETREIRO ============ -->
 <div class="marquee" aria-label="Smash burgers, crispy chicken, loaded fries, milkshakes and ice cream">
   <div class="marquee-track" aria-hidden="true">
-    <div class="marquee-group"><span>Smash burgers</span><i>★</i><span>Crispy chicken</span><i>★</i><span>Loaded fries</span><i>★</i><span>Milkshakes</span><i>★</i><span>Ice cream</span><i>★</i></div>
-    <div class="marquee-group"><span>Smash burgers</span><i>★</i><span>Crispy chicken</span><i>★</i><span>Loaded fries</span><i>★</i><span>Milkshakes</span><i>★</i><span>Ice cream</span><i>★</i></div>
+    <div class="marquee-group"><span>Smash burgers</span><i>★</i><span>Crispy chicken</span><i>★</i><span>Pizza</span><i>★</i><span>Loaded fries</span><i>★</i><span>Milkshakes</span><i>★</i><span>Ice cream</span><i>★</i></div>
+    <div class="marquee-group"><span>Smash burgers</span><i>★</i><span>Crispy chicken</span><i>★</i><span>Pizza</span><i>★</i><span>Loaded fries</span><i>★</i><span>Milkshakes</span><i>★</i><span>Ice cream</span><i>★</i></div>
   </div>
 </div>
 
@@ -963,6 +964,7 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
     <div class="chips" role="group" aria-label="Filter the menu by category">
       <button class="chip" type="button" data-cat="todos" aria-pressed="true">All</button>
       <button class="chip" type="button" data-cat="hamburgueres" aria-pressed="false">Burgers</button>
+      <button class="chip" type="button" data-cat="pizza" aria-pressed="false">Pizza</button>
       <button class="chip" type="button" data-cat="frango" aria-pressed="false">Chicken</button>
       <button class="chip" type="button" data-cat="acompanhamentos" aria-pressed="false">Sides</button>
       <button class="chip" type="button" data-cat="bebidas" aria-pressed="false">Drinks</button>
@@ -980,6 +982,16 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
           <li class="item"><div class="item-top"><h4>Double Bacon</h4><span class="lead"></span><span class="item-price">$13.90</span></div><p>Two smashed patties, double cheddar, crispy bacon and house barbecue sauce.</p></li>
           <li class="item"><div class="item-top"><h4>Honey Melt <span class="stk stk--blue">New</span></h4><span class="lead"></span><span class="item-price">$12.50</span></div><p>Smashed patty with griddled halloumi, caramelized onions and a drizzle of honey.</p></li>
           <li class="item"><div class="item-top"><h4>Simple Smash</h4><span class="lead"></span><span class="item-price">$8.90</span></div><p>One 3 oz smashed patty, American cheese, ketchup and mustard. No fuss.</p></li>
+        </ul>
+      </div>
+
+      <div class="menu-group" data-cat="pizza">
+        <div class="group-head"><h3>Pizza</h3><span>04 items</span></div>
+        <ul class="items">
+          <li class="item"><div class="item-top"><h4>Pepperoni</h4><span class="lead"></span><span class="item-price">$14.90</span></div><p>Mozzarella, tomato sauce and crispy cup-and-char pepperoni. 12-inch.</p></li>
+          <li class="item"><div class="item-top"><h4>Margherita</h4><span class="lead"></span><span class="item-price">$13.90</span></div><p>Tomato sauce, fresh mozzarella, basil and olive oil. 12-inch.</p></li>
+          <li class="item"><div class="item-top"><h4>BBQ Bacon</h4><span class="lead"></span><span class="item-price">$16.90</span></div><p>Barbecue sauce, mozzarella, bacon and red onions. 12-inch.</p></li>
+          <li class="item"><div class="item-top"><h4>Smash Burger Pizza <span class="stk stk--blue">New</span></h4><span class="lead"></span><span class="item-price">$17.90</span></div><p>Smashed beef, cheddar, pickles and house sauce on a crispy crust. 12-inch.</p></li>
         </ul>
       </div>
 
@@ -1176,19 +1188,33 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
     </button>
     <p class="hand">make it yours</p>
     <h2 id="opcoes-title"></h2>
-    <fieldset class="entrega opcoes-grupo">
+    <fieldset class="entrega opcoes-grupo" data-tipo="burger">
       <legend>Add extras</legend>
       <label><input type="checkbox" value="Extra patty" data-centavos="300"><span>Extra patty<small>+$3.00</small></span></label>
       <label><input type="checkbox" value="Bacon" data-centavos="200"><span>Bacon<small>+$2.00</small></span></label>
       <label><input type="checkbox" value="Extra cheese" data-centavos="100"><span>Extra cheese<small>+$1.00</small></span></label>
       <label><input type="checkbox" value="Jalapeños" data-centavos="75"><span>Jalapeños<small>+$0.75</small></span></label>
     </fieldset>
-    <fieldset class="entrega opcoes-grupo">
+    <fieldset class="entrega opcoes-grupo" data-tipo="burger">
       <legend>Leave out</legend>
       <label><input type="checkbox" value="No onions"><span>No onions</span></label>
       <label><input type="checkbox" value="No pickles"><span>No pickles</span></label>
       <label><input type="checkbox" value="No sauce"><span>No sauce</span></label>
       <label><input type="checkbox" value="Lettuce wrap"><span>Lettuce wrap</span></label>
+    </fieldset>
+    <fieldset class="entrega opcoes-grupo" data-tipo="pizza">
+      <legend>Size</legend>
+      <label><input type="radio" name="tamanho" value="Small 10&quot;" data-centavos="-300"><span>Small 10"<small>−$3.00</small></span></label>
+      <label><input type="radio" name="tamanho" value="Medium 12&quot;" data-padrao><span>Medium 12"<small>base price</small></span></label>
+      <label><input type="radio" name="tamanho" value="Large 14&quot;" data-centavos="400"><span>Large 14"<small>+$4.00</small></span></label>
+      <label><input type="radio" name="tamanho" value="Family 16&quot;" data-centavos="700"><span>Family 16"<small>+$7.00</small></span></label>
+    </fieldset>
+    <fieldset class="entrega opcoes-grupo" data-tipo="pizza">
+      <legend>Crust and toppings</legend>
+      <label><input type="checkbox" value="Stuffed crust" data-centavos="250"><span>Stuffed crust<small>+$2.50</small></span></label>
+      <label><input type="checkbox" value="Thin crust"><span>Thin crust<small>free</small></span></label>
+      <label><input type="checkbox" value="Extra cheese" data-centavos="200"><span>Extra cheese<small>+$2.00</small></span></label>
+      <label><input type="checkbox" value="Mushrooms" data-centavos="150"><span>Mushrooms<small>+$1.50</small></span></label>
     </fieldset>
     <button class="btn btn--blue opcoes-add" type="button" data-opcoes-add>Add to order · <span data-opcoes-total></span></button>
   </div>
@@ -1338,7 +1364,7 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
       const rotulo = li.querySelector('.sacola-nome');
       rotulo.textContent = nome;
       rotulo.append(Object.assign(document.createElement('small'), { textContent: [dolares(i.centavos), ...i.extras].join(' · ') }));
-      if (burgers.has(nome)) {
+      if (burgers.has(nome) || pizzas.has(nome)) {
         const editar = Object.assign(document.createElement('button'), { type: 'button', className: 'sacola-editar', textContent: 'Customize' });
         editar.setAttribute('aria-label', 'Customize ' + nome);
         rotulo.append(editar);
@@ -1366,7 +1392,8 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
   const dlgOpcoes = $('#opcoes'), opcoes = $$('input', dlgOpcoes), opcoesTotal = $('[data-opcoes-total]');
   const burgers = new Set($$('.menu-group[data-cat="hamburgueres"] h4').map(h => h.firstChild.textContent.trim()));
   let escolha = null, editando = null;
-  const marcadas = () => opcoes.filter(o => o.checked);
+  const pizzas = new Set($$('.menu-group[data-cat="pizza"] h4').map(h => h.firstChild.textContent.trim()));
+  const marcadas = () => opcoes.filter(o => o.checked && !o.closest('[data-tipo]').hidden);
   const precoEscolha = () => escolha.centavos + marcadas().reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
   function escolher(nome, preco) {
     const centavos = +preco.replace(/\D/g, '');
@@ -1374,7 +1401,10 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
   }
   function abrirOpcoes(nome, centavos, extras = []) {
     escolha = { nome, centavos };
-    opcoes.forEach(o => { o.checked = extras.includes(o.value); });
+    const tipo = pizzas.has(nome) ? 'pizza' : 'burger';
+    $$('[data-tipo]', dlgOpcoes).forEach(g => { g.hidden = g.dataset.tipo !== tipo; });
+    opcoes.forEach(o => { o.checked = !o.closest('[data-tipo]').hidden && extras.includes(o.value); });
+    if (tipo === 'pizza' && !opcoes.some(o => o.name === 'tamanho' && o.checked)) $('[data-padrao]', dlgOpcoes).checked = true;
     $('#opcoes-title').textContent = nome;
     opcoesTotal.textContent = dolares(precoEscolha());
     dlgOpcoes.showModal();
@@ -1401,7 +1431,7 @@ html{ scroll-padding-top:calc(var(--hdr) + var(--rib) + 12px); }
   sacolaLista.addEventListener('click', e => {
     if (e.target.closest('.sacola-editar')) {
       const chave = e.target.closest('li').dataset.chave, i = sacola.get(chave);
-      const extraPago = opcoes.filter(o => i.extras.includes(o.value)).reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
+      const extraPago = opcoes.filter(o => i.extras.includes(o.value) && o.closest('[data-tipo]').dataset.tipo === (pizzas.has(i.nome) ? 'pizza' : 'burger')).reduce((s, o) => s + +(o.dataset.centavos || 0), 0);
       editando = chave;
       abrirOpcoes(i.nome, i.centavos - extraPago, i.extras);
       return;
